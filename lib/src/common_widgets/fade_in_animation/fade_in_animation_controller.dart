@@ -4,8 +4,8 @@ import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:get/get.dart';
 
-class SplashScreenController extends GetxController{
-  static SplashScreenController get find => Get.find();
+class FadeInAnimationController extends GetxController{
+  static FadeInAnimationController get find => Get.find();
 
   RxBool animate = false.obs;
 
