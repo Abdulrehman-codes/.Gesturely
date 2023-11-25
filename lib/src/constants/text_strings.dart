@@ -1,4 +1,8 @@
 
+
+const String gLogin="Login";
+const String gSignup="SignUp";
+
 const String gAppName="Gesturely";
 const String gAppTagLine="No Touching \n Only Signs";
 
@@ -12,5 +16,10 @@ const String gBoardSubtitle3="jabba jabba";
 const String gBoardCounter1="1/3";
 const String gBoardCounter2="2/3";
 const String gBoardCounter3="3/3";
+
+
+const String gWelcomeTitle="Awesome App";
+const String gWelcomeSubtitle="blah blah blah blah blah blah";
+
 
 
