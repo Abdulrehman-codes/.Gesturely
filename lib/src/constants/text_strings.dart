@@ -21,5 +21,13 @@ const String gBoardCounter3="3/3";
 const String gWelcomeTitle="Awesome App";
 const String gWelcomeSubtitle="blah blah blah blah blah blah";
 
+const String gLoginTitle="Welcome Back";
+const String gLoginSubTitle="Make it Works";
+const String gRemeberMe="Remeber Me?";
+const String gAlreadyHaveAnAccount="Already have an Account?";
 
-
+const String gEmail="Email";
+const String gPassword="Password";
+const String gForgotPassword="Forgot Password";
+const String gSignInWithGoogle="Sign In With Google";
+const String gDontHaveAnAccount="Don`t have an Account?";
