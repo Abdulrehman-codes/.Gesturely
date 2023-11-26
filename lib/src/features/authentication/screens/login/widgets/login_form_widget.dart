@@ -16,13 +16,13 @@ class LoginForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.person_outline_outlined),
                     labelText: gEmail,
                     hintText: gEmail,
                     border: OutlineInputBorder()),
               ),
-              const SizedBox(height: gFormHeight),
+              const SizedBox(height: gFormHeight-20),
               TextFormField(
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.person_outline_outlined),

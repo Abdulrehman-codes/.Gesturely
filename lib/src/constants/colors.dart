@@ -1,11 +1,9 @@
+import 'package:flutter/material.dart';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
-
-const gPrimaryColor=Color(0xff69f8cd);
-const gSecondaryColor=Color(0xff232323);
-const gAccentColor=Color(0xFF038c93);
+const gPrimaryColor=Color(0xffe5e441);
+const gSecondaryColor=Color(0xff000000);
+const gAccentColor=Color(0xff70c2c5);
 
 const gCardBgColor= Color(0XFFF7F6F1);
 const gWhiteColor=Color(0xFFffffff);

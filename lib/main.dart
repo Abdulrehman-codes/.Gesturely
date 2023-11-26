@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       theme: GAppTheme.lightTheme,
       darkTheme: GAppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
 
   }

@@ -11,9 +11,10 @@ class Loginfooterwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+     // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text("OR"),
+        const SizedBox(height: gFormHeight-20),
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
@@ -22,7 +23,7 @@ class Loginfooterwidget extends StatelessWidget {
                 width: 20.0,
               ),
               onPressed: () {},
-              label: const Text(gSignInWithGoogle)),
+              label: Text(gSignInWithGoogle,style: Theme.of(context).textTheme.bodyText1),),
         ),
         const SizedBox(height: gFormHeight - 20),
         TextButton(

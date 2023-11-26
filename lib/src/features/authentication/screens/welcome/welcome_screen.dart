@@ -7,6 +7,8 @@ import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
 import 'package:fyp/src/features/authentication/screens/login/login_screen.dart';
+import 'package:fyp/src/features/authentication/screens/signup/signup_screen.dart';
+import 'package:fyp/src/utils/theme/widgets_theme/text_theme.dart';
 import 'package:get/get.dart';
 
 class Welcome extends StatelessWidget {
@@ -64,13 +66,13 @@ class Welcome extends StatelessWidget {
                         Expanded(
                             child: OutlinedButton(
                                 onPressed: () =>Get.to(()=>const LoginScreen()),
-                                child: Text(gLogin.toUpperCase()))),
+                                child: Text(gLogin.toUpperCase(),style: Theme.of(context).textTheme.bodyText1,))),
                         const SizedBox(
                           width: 10.0,
                         ),
                         Expanded(
                             child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () =>Get.to(()=> const SignUpScreen()),
                                 child: Text(gSignup.toUpperCase()))),
                       ],
                     )

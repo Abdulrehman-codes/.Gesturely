@@ -31,3 +31,7 @@ const String gPassword="Password";
 const String gForgotPassword="Forgot Password";
 const String gSignInWithGoogle="Sign In With Google";
 const String gDontHaveAnAccount="Don`t have an Account?";
+const String gSignUpTitle="Get On Board!";
+const String gSignUpSubTitle="Create your profile to start your Journey with us...";
+const String gFullname="Full Name";
+const String gPhoneNo="Phone No";
