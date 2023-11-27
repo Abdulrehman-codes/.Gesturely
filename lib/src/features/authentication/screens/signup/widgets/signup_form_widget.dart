@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
+import 'package:fyp/src/features/authentication/controllers/signup_controller.dart';
+import 'package:get/get.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
@@ -9,13 +11,18 @@ class SignUpFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SignUpController());
+    final _formKey=GlobalKey<FormState>();
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: gFormHeight - 10),
       child: Form(
+        key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                controller: controller.fullname,
                 decoration: const InputDecoration(
                   label: Text(gFullname),
                   prefixIcon: Icon(Icons.person_outline_rounded),
@@ -23,6 +30,7 @@ class SignUpFormWidget extends StatelessWidget {
               ),
               const SizedBox(height: gFormHeight-20),
               TextFormField(
+                controller: controller.email,
                 decoration: const InputDecoration(
                   label: Text(gEmail),
                   prefixIcon: Icon(Icons.email_outlined),
@@ -30,6 +38,7 @@ class SignUpFormWidget extends StatelessWidget {
               ),
               const SizedBox(height: gFormHeight-20),
               TextFormField(
+                controller: controller.phoneno,
                 decoration: const InputDecoration(
                   label: Text(gPhoneNo),
                   prefixIcon: Icon(Icons.numbers),
@@ -37,6 +46,7 @@ class SignUpFormWidget extends StatelessWidget {
               ),
               const SizedBox(height: gFormHeight-20),
               TextFormField(
+                controller: controller.password,
                 decoration: const InputDecoration(
                   label: Text(gPassword),
                   prefixIcon: Icon(Icons.fingerprint),
@@ -45,7 +55,12 @@ class SignUpFormWidget extends StatelessWidget {
               const SizedBox(height: gFormHeight-10),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(onPressed: (){},
+                child: ElevatedButton(
+                  onPressed: (){
+                  if(_formKey.currentState!.validate()){
+                    SignUpController.instance.registerUser(controller.email.text.trim(), controller.password.text.trim());
+                  }
+                },
                   child: Text(gSignup.toUpperCase()),),
               )
             ],
