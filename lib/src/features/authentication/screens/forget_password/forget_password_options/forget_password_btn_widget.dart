@@ -21,7 +21,7 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade500,
         ),
         child: Row(
           children: [
@@ -37,7 +37,7 @@ class ForgetPasswordBtnWidget extends StatelessWidget {
                 Text(title,
                     style: Theme.of(context)
                         .textTheme
-                        .headline6),
+                        .headline6,),
                 Text(
                   subTitle,
                   style: Theme.of(context)

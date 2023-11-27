@@ -42,5 +42,9 @@ const String gForgetPasswordTitle="Forget Password";
 const String gForgetPasswordSubtitle="Select one option";
 const String gResetViaEmail="Email Verification";
 const String gResetViaPhone="Phone Verification";
+const String gNull="";
 
 const String gNext="Next";
+const String gOtpTitle="CO\nDE";
+const String gOtpSubTitle="Verification";
+const String gOtpMessage="Enter the verification code sent at";

@@ -21,11 +21,11 @@ class ForgetPasswordScreen{
           children: [
             Text(
               gForgetPasswordTitle,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.headline6,
             ),
             Text(
               gForgetPasswordSubtitle,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             const SizedBox(height: 30.0),
             ForgetPasswordBtnWidget(
