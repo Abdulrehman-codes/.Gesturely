@@ -35,3 +35,12 @@ const String gSignUpTitle="Get On Board!";
 const String gSignUpSubTitle="Create your profile to start your Journey with us...";
 const String gFullname="Full Name";
 const String gPhoneNo="Phone No";
+
+
+
+const String gForgetPasswordTitle="Forget Password";
+const String gForgetPasswordSubtitle="Select one option";
+const String gResetViaEmail="Email Verification";
+const String gResetViaPhone="Phone Verification";
+
+const String gNext="Next";

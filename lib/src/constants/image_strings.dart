@@ -13,3 +13,6 @@ const String gBoardImage3= "assets/images/boarding_images/png3.png";
 const String gWelcomeImage= "assets/images/welcome_images/welcome-image.png";
 
 const String gGoogleLogoImage="assets/logo/glogo.png";
+
+
+const String gForgetPasswordImage= "assets/images/forget_password/forget_password.png";

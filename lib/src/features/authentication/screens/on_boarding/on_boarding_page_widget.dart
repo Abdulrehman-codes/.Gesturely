@@ -31,7 +31,7 @@ class OnBoardingPageWidget extends StatelessWidget {
             ],
           ),
           Text(model.counterText,style: Theme.of(context).textTheme.headline6,),
-          SizedBox(height: 50.0,)
+          const SizedBox(height: 50.0,)
         ],
       ),);
   }

@@ -11,7 +11,7 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatelessWidget{
-  OnBoardingScreen({super.key});
+  const OnBoardingScreen({super.key});
 
 
   @override
@@ -46,7 +46,7 @@ class OnBoardingScreen extends StatelessWidget{
                   decoration: const BoxDecoration(
                     color: gDarkColor,shape:BoxShape.circle
                   ),
-                  child: Icon(Icons.arrow_forward_ios),
+                  child: const Icon(Icons.arrow_forward_ios),
                 ),
               )),
           Positioned(

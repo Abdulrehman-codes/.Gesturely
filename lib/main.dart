@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/utils/theme/theme.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
@@ -17,6 +18,8 @@ class App extends StatelessWidget {
       theme: GAppTheme.lightTheme,
       darkTheme: GAppTheme.darkTheme,
       themeMode: ThemeMode.system,
+      defaultTransition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
       home: const SplashScreen(),
     );
 

@@ -13,3 +13,6 @@ const gDarkColor=Color(0XFF000000);
 const gBoardPage1Color=Colors.white;
 const gBoardPage2Color=Color(0xFFfddcdf);
 const gBoardPage3Color=Color(0xFFffdcbd);
+
+
+const gGrey=Color(0xffa6a6a6);

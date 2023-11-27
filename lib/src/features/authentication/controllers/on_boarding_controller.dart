@@ -5,6 +5,7 @@ import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/text_strings.dart';
 import 'package:fyp/src/features/authentication/models/model_on_boarding.dart';
 import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_page_widget.dart';
+import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:get/get.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
 
@@ -42,14 +43,14 @@ class OnBoardingController extends GetxController{
 
     )
   ];
-  skip()=>controller.jumpToPage(page: 2);
+  skip()=>Get.to(()=>const Welcome());
   animateToNextSlide()
   {
     int nextPage=controller.currentPage+1;
     controller.animateToPage(page: nextPage);
     if (nextPage==3)
       {
-        Get.to(AppHome());
+        Get.to(()=>const Welcome());
       }
   }
   onPageChangedCallback(int activePageIndex)=>currentPage.value=activePageIndex;
