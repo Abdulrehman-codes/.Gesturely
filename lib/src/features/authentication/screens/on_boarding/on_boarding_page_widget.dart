@@ -25,7 +25,8 @@ class OnBoardingPageWidget extends StatelessWidget {
           Image(image: AssetImage(model.image), height: size.height*0.4,),
           Column(
             children: [
-              Text(model.title,style: Theme.of(context).textTheme.headline2,),
+              Text(model.title,style: Theme.of(context).textTheme.headline5,textAlign: TextAlign.center,),
+              SizedBox(height: 30.0,),
               Text(model.subTitle,textAlign: TextAlign.center,),
 
             ],

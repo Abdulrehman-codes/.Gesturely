@@ -13,16 +13,19 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(gDefaultSize),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FormHeaderWidget(
-                    image: gWelcomeImage, title: gLoginTitle, subTitle: gLoginSubTitle),
+                    image: isDarkMode? gesturelyWhite:gesturelyBlack, title: gLoginTitle, subTitle: gLoginSubTitle),
                 LoginForm(),
                 Loginfooterwidget()
               ],

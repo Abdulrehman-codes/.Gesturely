@@ -12,6 +12,15 @@ class SignUpController extends GetxController{
   final phoneno= TextEditingController();
 
   void registerUser(String email, String password){
-      AuthenticationRepository.instance.createUserwithEmailandPassword(email, password);
+     String? error= AuthenticationRepository.instance.createUserwithEmailandPassword(email, password) as String?;
+     if(error!=null){
+       Get.showSnackbar(GetSnackBar(message: error.toString(),));
+     }
+  }
+  void phoneAuthentication(String phoneNo){
+      AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+  }
+  void login(String email,String password){
+     AuthenticationRepository.instance.loginwithEmailandPassword(email, password);
   }
 }

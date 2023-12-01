@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
+import 'package:fyp/src/features/authentication/controllers/opt_controller.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OTPScreen extends StatelessWidget{
@@ -9,6 +11,9 @@ class OTPScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final controller=Get.put(OTPController());
+
+    var otp;
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(gDefaultSize),
@@ -24,16 +29,22 @@ class OTPScreen extends StatelessWidget{
             const Text(gOtpMessage,textAlign: TextAlign.center,),
             const SizedBox(height: 20.0),
             OtpTextField(
+              mainAxisAlignment: MainAxisAlignment.center,
               numberOfFields: 6,
               fillColor: Colors.black.withOpacity(0.1),
               filled: true,
-              onSubmit: (code){print("OTP is => $code");},
+              onSubmit: (code){
+                otp=code;
+                controller.verifyOTP(otp);
+                  },
             ),
             const SizedBox(height: 20.0),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  controller.verifyOTP(otp);
+                },
                 child: const Text(gNext),
               ),
             )

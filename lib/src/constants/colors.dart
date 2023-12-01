@@ -10,9 +10,9 @@ const gWhiteColor=Color(0xFFffffff);
 const gDarkColor=Color(0XFF000000);
 
 
-const gBoardPage1Color=Colors.white;
-const gBoardPage2Color=Color(0xFFfddcdf);
-const gBoardPage3Color=Color(0xFFffdcbd);
+const gBoardPage1Color=Color(0xffffb789);
+const gBoardPage2Color=Color(0xffac99df);
+const gBoardPage3Color=Color(0xffffb789);
 
 
 const gGrey=Color(0xffa6a6a6);

@@ -15,48 +15,55 @@ class SplashScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     final controller =Get.put(FadeInAnimationController());
     controller.startSplashAnimation();
-
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     return Scaffold(
+      backgroundColor: isDarkMode? Colors.black : Colors.white,
       body: Stack(
         children: [
-          GFadeInAnimation(durationInMs: 1600,
-          animate: GAnimatePosition(
-              topAfter: 300,
-              topBefore: 200,
-              rightAfter: 70,
-            rightBefore: -30
-          ),
-          child: const Image(width:200,height:200,image: AssetImage(gSplashTopIcon)),
-          ),
+          // GFadeInAnimation(
+          //   durationInMs: 1600,
+          //       animate: GAnimatePosition(topBefore: 0,
+          //       topAfter: 80,
+          //         leftBefore: 0,
+          //         leftAfter: 0,
+          //         rightAfter: 0,
+          //         rightBefore: 0,
+          //       ),
+          //     child: Column(
+          //       children: [
+          //         Text(gAppName,textAlign: TextAlign.center ,style: Theme
+          //             .of(context)
+          //             .textTheme
+          //             .headline3,),
+          //       ],
+          //     ),
+          //   ),
           GFadeInAnimation(
-            durationInMs: 1600,
-                animate: GAnimatePosition(topBefore: 80,
-                topAfter: 80,
-                leftAfter: gDefaultSize,
-                leftBefore: -80),
-              child: Column(
-                children: [
-                  Text(gAppName, style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline3,),
-                  Text(gAppTagLine, style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline2,)
-                ],
-              ),
-            ),
+            durationInMs: 1000,
+            animate:GAnimatePosition(
+                 topBefore: 0,
+                 topAfter: 80,
+                 leftBefore: 0,
+                 leftAfter: 0,
+                 rightAfter: 0,
+                 rightBefore: 0,),
+            child: Image(
+                width:100,
+                height:50,
+                image: isDarkMode? AssetImage(gesturelyWhite):AssetImage(gesturelyBlack),
+          ),),
           GFadeInAnimation(
-                durationInMs: 2000,
+                durationInMs: 1000,
               animate:GAnimatePosition(bottomBefore: -100,
-              bottomAfter: 0),
+              bottomAfter: 200),
               child: const Image(
                   width:400,
                   //height:200,
                   image: AssetImage(gSplashImage)),
             ),
-          
+
           //
           // Positioned(
           //     bottom: 40,

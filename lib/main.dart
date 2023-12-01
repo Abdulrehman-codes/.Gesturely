@@ -5,11 +5,10 @@ import 'package:fyp/src/features/authentication/screens/splash_screen/splash_scr
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:fyp/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-void main() {
+Future<void> main()  async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
   runApp(const App());
 }
@@ -26,7 +25,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       defaultTransition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 500),
-      home: const SplashScreen(),
+      home: const CircularProgressIndicator(),
     );
   }
 }

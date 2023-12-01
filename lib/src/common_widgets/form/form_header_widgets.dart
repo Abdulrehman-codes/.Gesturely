@@ -36,11 +36,11 @@ class FormHeaderWidget extends StatelessWidget {
           style: Theme
               .of(context)
               .textTheme
-              .headline2,
+              .headline4,
         ),
         Text(
           subTitle,
-          textAlign: textAlign,
+          textAlign: TextAlign.center,
           style: Theme
               .of(context)
               .textTheme

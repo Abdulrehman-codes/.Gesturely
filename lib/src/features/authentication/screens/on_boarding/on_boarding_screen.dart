@@ -27,7 +27,7 @@ class OnBoardingScreen extends StatelessWidget{
           LiquidSwipe(
               pages: obController.pages,
             slideIconWidget: const Icon(Icons.arrow_back_ios),
-            enableSideReveal: true,
+           // enableSideReveal: true,
             liquidController: obController.controller,
             onPageChangeCallback: obController.onPageChangedCallback,
           ),

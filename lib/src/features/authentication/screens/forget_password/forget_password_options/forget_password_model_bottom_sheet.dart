@@ -5,7 +5,6 @@ import 'package:fyp/src/features/authentication/screens/forget_password/foget_pa
 import 'package:fyp/src/features/authentication/screens/forget_password/forget_password_mail/forget_password_mail.dart';
 import 'package:fyp/src/features/authentication/screens/forget_password/forget_password_options/forget_password_btn_widget.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 
 class ForgetPasswordScreen{

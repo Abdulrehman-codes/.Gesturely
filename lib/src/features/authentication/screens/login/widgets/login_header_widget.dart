@@ -11,27 +11,27 @@ class LoginHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+    final isDarkMode = brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image(
-          image: const AssetImage(gWelcomeImage),
-          height: size.height * 0.2,
+          // image: const AssetImage(gWelcomeImage),
+          // height: size.height * 0.2,
+          width:100,
+          height:50,
+          image: isDarkMode? AssetImage(gesturelyWhite):AssetImage(gesturelyBlack),
         ),
         Text(
           gLoginTitle,
           style: Theme
               .of(context)
               .textTheme
-              .headline2,
+              .headline4,
         ),
-        Text(
-          gLoginSubTitle,
-          style: Theme
-              .of(context)
-              .textTheme
-              .bodyText1,
-        ),
+
       ],
     );
   }
