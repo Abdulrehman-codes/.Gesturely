@@ -5,24 +5,26 @@ class GTextFormFieldTheme{
   GTextFormFieldTheme._();
 
   static InputDecorationTheme lightInputDecorationTheme=
-  const InputDecorationTheme(
-      border: OutlineInputBorder(),
+  InputDecorationTheme(
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
       prefixIconColor: gSecondaryColor,
-      floatingLabelStyle:TextStyle(color: gSecondaryColor),
+      floatingLabelStyle:const TextStyle(color: gSecondaryColor),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2.0,color: gSecondaryColor),
+          borderRadius: BorderRadius.circular(100),
+          borderSide: const BorderSide(width: 2.0,color: gSecondaryColor),
       ),
   );
 
 
 
   static InputDecorationTheme darkInputDecorationTheme=
-  const InputDecorationTheme(
-    border: OutlineInputBorder(),
+  InputDecorationTheme(
+    border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
     prefixIconColor: gPrimaryColor,
-    floatingLabelStyle:TextStyle(color: gPrimaryColor),
+    floatingLabelStyle:const TextStyle(color: gPrimaryColor),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(width: 2.0,color: gPrimaryColor),
+      borderRadius: BorderRadius.circular(100),
+      borderSide: const BorderSide(width: 2.0,color: gPrimaryColor),
     ),
   );
 }

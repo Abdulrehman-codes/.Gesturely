@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
-import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +21,8 @@ class AuthenticationRepository extends GetxController {
     user == null ? Get.offAll(() => const SplashScreen()) : Get
         .offAll(() => const DashBoard());
   }
+
+
 
   Future<void> phoneAuthentication(String phoneno) async {
     await _auth.verifyPhoneNumber(
@@ -50,6 +51,7 @@ class AuthenticationRepository extends GetxController {
     var credentials =await _auth.signInWithCredential(PhoneAuthProvider.credential(verificationId: this.verificationId.value, smsCode: otp));
     return credentials.user != null? true:false;
   }
+
 
 
   Future<void> createUserwithEmailandPassword(String email,

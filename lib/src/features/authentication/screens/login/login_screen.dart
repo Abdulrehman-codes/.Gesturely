@@ -26,8 +26,8 @@ class LoginScreen extends StatelessWidget {
               children: [
                 FormHeaderWidget(
                     image: isDarkMode? gesturelyWhite:gesturelyBlack, title: gLoginTitle, subTitle: gLoginSubTitle),
-                LoginForm(),
-                Loginfooterwidget()
+                const LoginForm(),
+                const Loginfooterwidget()
               ],
             ),
           ),

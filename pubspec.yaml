@@ -21,6 +21,8 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   firebase_core: ^2.23.0
   firebase_auth: ^4.14.1
+  line_awesome_flutter: ^2.0.0
+  cloud_firestore: ^4.13.3
 
 dev_dependencies:
   flutter_test:
@@ -50,6 +52,7 @@ flutter:
      - assets/images/
      - assets/images/boarding_images/
      - assets/images/welcome_images/
+     - assets/images/profile/
      - assets/images/forget_password/
      - assets/images/splash_images/
      - assets/logo/

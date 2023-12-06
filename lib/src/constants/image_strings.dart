@@ -20,3 +20,5 @@ const String gGoogleLogoImage="assets/logo/glogo.png";
 
 
 const String gForgetPasswordImage= "assets/images/forget_password/forget_password.png";
+
+const String gProfileImage="assets/images/profile/itachi.jpg";

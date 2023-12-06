@@ -48,3 +48,19 @@ const String gNext="Next";
 const String gOtpTitle="CO\nDE";
 const String gOtpSubTitle="Verification";
 const String gOtpMessage="Enter the verification code sent at";
+
+
+const String gProfile="Profile";
+const String gEditProfile="Edit Profile";
+const String gLogout="Logout";
+const String gProfileHeading="Gesturely";
+const String gProfileSubHeading="Jabba Jabba";
+
+const String gMenu3="User Management";
+const String gMenu2="Billing Details";
+const String gMenu1="Settings";
+const String gMenu4="Information";
+
+const String gDelete="Delete";
+const String gJoined="Joined";
+const String gJoinedAt="jabba jabba date";

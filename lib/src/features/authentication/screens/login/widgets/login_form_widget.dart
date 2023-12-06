@@ -5,7 +5,6 @@ import 'package:fyp/src/features/authentication/controllers/signup_controller.da
 import 'package:fyp/src/features/authentication/screens/forget_password/forget_password_options/forget_password_model_bottom_sheet.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -21,7 +20,7 @@ class LoginForm extends StatelessWidget {
 
     return Form(
         child: Container(
-      padding: EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -31,17 +30,18 @@ class LoginForm extends StatelessWidget {
                 prefixIcon: Icon(Icons.person_outline_outlined),
                 labelText: gEmail,
                 hintText: gEmail,
-                border: OutlineInputBorder()),
+               // border: OutlineInputBorder()
+            ),
           ),
           const SizedBox(height: gFormHeight - 20),
           TextFormField(
             controller: controller.password,
             obscureText: !_isPasswordVisible,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: const Icon(Icons.lock),
                 labelText: gPassword,
                 hintText: gPassword,
-                border: OutlineInputBorder(),
+               // border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                     onPressed:() {_isPasswordVisible = !_isPasswordVisible;
                     _formKey.currentState!.validate();
