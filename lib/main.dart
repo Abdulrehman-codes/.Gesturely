@@ -6,7 +6,7 @@ import 'package:fyp/src/repository/authentication_repository/authentication_repo
 import 'package:fyp/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
 
-Future<void> main()  async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
@@ -20,12 +20,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      themeMode: ThemeMode.system,
       theme: GAppTheme.lightTheme,
       darkTheme: GAppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      debugShowCheckedModeBanner: false,
       defaultTransition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 500),
-      home: const CircularProgressIndicator(),
+      home: const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }
