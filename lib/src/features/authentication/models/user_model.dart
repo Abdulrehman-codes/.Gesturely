@@ -21,7 +21,8 @@ class UserModel {
       "FullName": fullName,
       "Email": email,
       "Phone": phoneNo,
-      "Password": password,};
+      "Password": password,
+    };
   }
 
   factory UserModel.fromSnapShot(DocumentSnapshot<Map<String, dynamic>> document){

@@ -20,7 +20,10 @@ class UpdateProfileScreen extends StatelessWidget {
           onPressed: () => Get.back(),
           icon: const Icon(LineAwesomeIcons.angle_left),
         ),
-        title: Text(gEditProfile, style: Theme.of(context).textTheme.headline4),
+        title: Text(gEditProfile, style: Theme
+            .of(context)
+            .textTheme
+            .headline4),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -31,7 +34,14 @@ class UpdateProfileScreen extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  UserModel userData= snapshot.data as UserModel;
+                  UserModel user = snapshot.data as UserModel;
+
+
+                  final email=TextEditingController(text: user.email);
+                  final password=TextEditingController(text: user.password);
+                  final fullName=TextEditingController(text: user.fullName);
+                  final phoneNo=TextEditingController(text: user.phoneNo);
+
                   return Column(
                     children: [
                       Stack(
@@ -65,83 +75,99 @@ class UpdateProfileScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Form(
                           child: Column(
-                        children: [
-                          TextFormField(
-                            initialValue: userData.fullName,
-                            decoration: const InputDecoration(
-                              label: Text(gFullname),
-                              prefixIcon: Icon(Icons.person_outline_rounded),
-                            ),
-                          ),
-                          const SizedBox(height: gFormHeight - 20),
-                          TextFormField(
-                            initialValue: userData.email,
-                            decoration: const InputDecoration(
-                              label: Text(gEmail),
-                              prefixIcon: Icon(Icons.email_outlined),
-                            ),
-                          ),
-                          const SizedBox(height: gFormHeight - 20),
-                          TextFormField(
-                            initialValue: userData.phoneNo,
-                            decoration: const InputDecoration(
-                              label: Text(gPhoneNo),
-                              prefixIcon: Icon(Icons.numbers),
-                            ),
-                          ),
-                          const SizedBox(height: gFormHeight - 20),
-                          TextFormField(
-                            initialValue: userData.password,
-                            decoration: const InputDecoration(
-                              label: Text(gPassword),
-                              prefixIcon: Icon(Icons.fingerprint),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () =>
-                                  Get.to(() => const UpdateProfileScreen()),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: gPrimaryColor,
-                                side: BorderSide.none,
-                                shape: const StadiumBorder(),
-                              ),
-                              child: const Text(gEditProfile),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text.rich(TextSpan(
-                                  text: gJoined,
-                                  style: TextStyle(fontSize: 12),
-                                  children: [
-                                    TextSpan(
-                                      text: gJoinedAt,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12),
-                                    )
-                                  ])),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Colors.redAccent.withOpacity(0.1),
-                                  elevation: 0,
-                                  foregroundColor: Colors.red,
-                                  shape: const StadiumBorder(),
-                                  side: BorderSide.none,
+                              TextFormField(
+                                controller: fullName,
+                               // initialValue: userData.fullName,
+                                decoration: const InputDecoration(
+                                  label: Text(gFullname),
+                                  prefixIcon: Icon(
+                                      Icons.person_outline_rounded),
                                 ),
-                                child: const Text(gDelete),
-                              )
+                              ),
+                              const SizedBox(height: gFormHeight - 20),
+                              TextFormField(
+                                controller: email,
+                               // initialValue: userData.email,
+                                decoration: const InputDecoration(
+                                  label: Text(gEmail),
+                                  prefixIcon: Icon(Icons.email_outlined),
+                                ),
+                              ),
+                              const SizedBox(height: gFormHeight - 20),
+                              TextFormField(
+                                controller: phoneNo,
+                                //initialValue: userData.phoneNo,
+                                decoration: const InputDecoration(
+                                  label: Text(gPhoneNo),
+                                  prefixIcon: Icon(Icons.numbers),
+                                ),
+                              ),
+                              const SizedBox(height: gFormHeight - 20),
+                              TextFormField(
+                                controller: password,
+                                //initialValue: userData.password,
+                                decoration: const InputDecoration(
+                                  label: Text(gPassword),
+                                  prefixIcon: Icon(Icons.fingerprint),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    final userData = UserModel(
+                                      id: user.id,
+                                        email: email.text.trim(),
+                                        password: password.text.trim(),
+                                        fullName: fullName.text.trim(),
+                                        phoneNo: phoneNo.text.trim(),
+                                    );
+
+                                    await controller.updateRecord(userData);
+
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: gPrimaryColor,
+                                    side: BorderSide.none,
+                                    shape: const StadiumBorder(),
+                                  ),
+                                  child: const Text(gEditProfile),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  const Text.rich(TextSpan(
+                                      text: gJoined,
+                                      style: TextStyle(fontSize: 12),
+                                      children: [
+                                        TextSpan(
+                                          text: gJoinedAt,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        )
+                                      ])),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor:
+                                      Colors.redAccent.withOpacity(0.1),
+                                      elevation: 0,
+                                      foregroundColor: Colors.red,
+                                      shape: const StadiumBorder(),
+                                      side: BorderSide.none,
+                                    ),
+                                    child: const Text(gDelete),
+                                  )
+                                ],
+                              ),
                             ],
-                          ),
-                        ],
-                      ))
+                          ))
                     ],
                   );
                 } else if (snapshot.hasError) {
