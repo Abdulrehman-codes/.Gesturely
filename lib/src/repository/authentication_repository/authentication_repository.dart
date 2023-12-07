@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
+import 'package:fyp/src/features/authentication/screens/mail_varification/mail_varification.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
@@ -14,12 +16,13 @@ class AuthenticationRepository extends GetxController {
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    FlutterNativeSplash.remove();
+    setInitialScreen(firebaseUser.value);
+    //ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const SplashScreen()) : Get
-        .offAll(() => const DashBoard());
+  setInitialScreen(User? user) {
+    user == null ? Get.offAll(() => const SplashScreen()) : user.emailVerified? Get.offAll(() => const DashBoard()) : Get.offAll(() => MailVerification());
   }
 
 
@@ -69,6 +72,14 @@ class AuthenticationRepository extends GetxController {
       const ex = SignupWithEmailAndPasswordFailure();
       print('EXCEPTION - ${ex.message}');
       throw ex;
+    }
+  }
+
+  Future<void> sendEmailVarification() async{
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on Exception catch (e) {
+
     }
   }
 
