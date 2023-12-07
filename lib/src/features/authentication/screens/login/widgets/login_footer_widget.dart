@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:fyp/src/constants/image_strings.dart';
+import 'package:fyp/src/constants/sizes.dart';
+import 'package:fyp/src/constants/text_strings.dart';
+import 'package:fyp/src/features/authentication/screens/signup/signup_screen.dart';
+import 'package:get/get.dart';
+
+class Loginfooterwidget extends StatelessWidget {
+  const Loginfooterwidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+     // crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text("OR"),
+        const SizedBox(height: gFormHeight-20),
+        SizedBox(
+          width: double.infinity,
+          child: OutlinedButton.icon(
+              icon: const Image(
+                image: AssetImage(gGoogleLogoImage),
+                width: 20.0,
+              ),
+              onPressed: () {},
+              label: Text(gSignInWithGoogle,style: Theme.of(context).textTheme.bodyText1),),
+        ),
+        const SizedBox(height: gFormHeight - 20),
+        TextButton(
+          onPressed: () {
+            Get.offAll(()=>const SignUpScreen());
+          },
+          child: const Text.rich(TextSpan(
+            text: gDontHaveAnAccount,
+            children:[
+              TextSpan(
+                text: gSignup,
+                style:TextStyle(color: Colors.blue),
+              ),
+            ],
+          ),),
+        ),
+      ],
+    );
+  }
+}

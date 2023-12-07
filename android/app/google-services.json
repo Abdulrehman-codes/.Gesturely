@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446002085458",
+    "project_id": "gesturely-4fedd",
+    "storage_bucket": "gesturely-4fedd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446002085458:android:767a2f1b2297b8cd3fe98b",
+        "android_client_info": {
+          "package_name": "com.example.fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArIYEaR9QtVocCZpYuxac0wiIRsNuBVMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
