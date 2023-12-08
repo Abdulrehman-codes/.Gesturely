@@ -64,3 +64,18 @@ const String gMenu4="Information";
 const String gDelete="Delete";
 const String gJoined="Joined";
 const String gJoinedAt="jabba jabba date";
+
+const String gEmailVerificationTitle="Email Verifcation Title";
+const String gEmailVerificationSubTitle="Email Verifcation SubTitle";
+const String gContinue="Continue";
+const String gResendEmailLink="Resend Email Link";
+const String gBackToLogin="Back to Login";
+
+
+
+const String gAlert = "Alert";
+const String gOhSnap = "Oh Snap";
+const String gEmailSent = "Hurray!!! Email is on its way.";
+const String gCongratulations = "Congratulations";
+const String gEmailLinkToResetPassword = "Email Link To Reset Password";
+const String gAccountCreateVerifyEmail = "Account Create Verify Email";

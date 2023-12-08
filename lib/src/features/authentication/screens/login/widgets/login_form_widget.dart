@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
-import 'package:fyp/src/features/authentication/controllers/signup_controller.dart';
+import 'package:fyp/src/features/authentication/controllers/login_controller.dart';
 import 'package:fyp/src/features/authentication/screens/forget_password/forget_password_options/forget_password_model_bottom_sheet.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =Get.put(SignUpController());
+    final controller =Get.put(LoginController());
     final authrepo =Get.put(AuthenticationRepository());
     final _formKey=GlobalKey<FormState>();
     bool _isPasswordVisible = false;
@@ -65,9 +65,7 @@ class LoginForm extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
-                  //if(_formKey.currentState!.validate()){
-                    authrepo.loginwithEmailandPassword(controller.email.text.trim(), controller.password.text.trim());
-                 // }
+                  controller.login();
                 }, child: Text(gLogin.toUpperCase())),
           )
         ],

@@ -1,27 +1,46 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
+import 'package:fyp/src/features/authentication/screens/login/login_screen.dart';
+import 'package:fyp/src/features/authentication/screens/mail_verification/mail_verification_Screen.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
+import 'package:fyp/src/exceptions/g_exceptions.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
+  late final Rx<User?> _firebaseUser;
   final _auth = FirebaseAuth.instance;
-  late final Rx<User?> firebaseUser;
   var verificationId=' '.obs;
+
+  User? get firebaseUser=>_firebaseUser.value;
+
+
+
   @override
   void onReady() {
-    firebaseUser = Rx<User?>(_auth.currentUser);
-    firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    _firebaseUser = Rx<User?>(_auth.currentUser);
+    _firebaseUser.bindStream(_auth.userChanges());
+    setInitialScreen(_firebaseUser.value);
+    // ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const SplashScreen()) : Get
-        .offAll(() => const DashBoard());
+  setInitialScreen(User? user) {
+    user == null ? Get.offAll(() => const SplashScreen()) :user.emailVerified? Get.offAll(() => const DashBoard()):Get.offAll(()=>const MailVerification());
   }
 
+  Future<void> sendEmailVerification() async{
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    }on FirebaseAuthException catch(e){
+      final ex= GExceptions.fromCode(e.code);
+      throw ex.message;
+    }catch(_){
+      const ex = GExceptions();
+      throw ex.message;
+    }
+  }
 
 
   Future<void> phoneAuthentication(String phoneno) async {
@@ -59,7 +78,7 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() => const DashBoard()) : Get
+      _firebaseUser.value != null ? Get.offAll(() => const DashBoard()) : Get
           .offAll(() => const SplashScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignupWithEmailAndPasswordFailure.code(e.code);
@@ -75,10 +94,15 @@ class AuthenticationRepository extends GetxController {
   Future<void> loginwithEmailandPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() => const DashBoard()) : Get
+      _firebaseUser.value != null ? Get.offAll(() => const DashBoard()) : Get
           .offAll(() => const SplashScreen());
     } on FirebaseAuthException catch (e) {} catch (_) {}
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> logout() async {
+
+    await _auth.signOut();
+    Get.offAll(()=> const LoginScreen());
+
+  }
 }
