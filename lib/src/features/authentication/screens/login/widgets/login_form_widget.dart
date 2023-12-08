@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/src/common_widgets/button/primary_button.dart';
+import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
 import 'package:fyp/src/features/authentication/controllers/login_controller.dart';
@@ -14,9 +16,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller =Get.put(LoginController());
-    final authrepo =Get.put(AuthenticationRepository());
-    final _formKey=GlobalKey<FormState>();
-    bool _isPasswordVisible = false;
+
 
     return Form(
         child: Container(
@@ -34,23 +34,26 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           const SizedBox(height: gFormHeight - 20),
-          TextFormField(
-            controller: controller.password,
-            obscureText: !_isPasswordVisible,
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.lock),
-                labelText: gPassword,
-                hintText: gPassword,
-               // border: const OutlineInputBorder(),
+          Obx(
+            ()=> TextFormField(
+              controller: controller.password,
+              obscureText: !controller.showPassword.value,
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  labelText: gPassword,
+                  hintText: gPassword,
                 suffixIcon: IconButton(
-                    onPressed:() {_isPasswordVisible = !_isPasswordVisible;
-                    _formKey.currentState!.validate();
-                    },
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                  ),)),
+                  icon: Icon(controller.showPassword.value
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    controller.togglePasswordVisibility();
+                  },
+                ),
+                 // border: const OutlineInputBorder(),
+                  ),
+
+            ),
           ),
           const SizedBox(height: gFormHeight - 20),
           Align(
@@ -63,11 +66,12 @@ class LoginForm extends StatelessWidget {
           ),
           SizedBox(
             width: double.infinity,
-            child: ElevatedButton(
-                onPressed: () {
-                  controller.login();
-                }, child: Text(gLogin.toUpperCase())),
+            child: GPrimaryButton(
+                text: gLogin,
+                image: gGoogleLogoImage,
+                onPressed: ()=>controller.login())
           )
+
         ],
       ),
     ));

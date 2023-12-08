@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class LoginController extends GetxController{
   static LoginController get instance => Get.find();
 
-  final showPassword = false.obs;
+  RxBool showPassword = false.obs;
   final email=TextEditingController();
   final password=TextEditingController();
   GlobalKey<FormState> loginFormKey=GlobalKey<FormState>();
@@ -17,6 +17,10 @@ class LoginController extends GetxController{
 
   final isLoading=false.obs;
   final isGoogleLoading=false.obs;
+
+  void togglePasswordVisibility() {
+    showPassword.toggle();
+  }
 
   Future<void> login()async{
     try {

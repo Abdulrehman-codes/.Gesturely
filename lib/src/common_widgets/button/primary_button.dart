@@ -6,8 +6,6 @@ class GPrimaryButton extends StatelessWidget{
   const GPrimaryButton({super.key,
     required this.text,
     required this.image,
-    required this.foreground,
-    required this.background,
     required this.onPressed,
     this.isLoading=false
   });
@@ -16,7 +14,6 @@ class GPrimaryButton extends StatelessWidget{
 
   final String text;
   final String image;
-  final Color foreground,background;
   final VoidCallback onPressed;
   final bool isLoading;
   @override
@@ -25,13 +22,13 @@ class GPrimaryButton extends StatelessWidget{
       width: double.infinity,
       child: ElevatedButton.icon(onPressed: onPressed,style: ElevatedButton.styleFrom(
         elevation: 0,
-        foregroundColor: foreground,
-        backgroundColor: background,
         side: BorderSide.none,
       ),
-          icon: isLoading?const SizedBox(): Image(image: AssetImage(image),width: 24,height: 24,),
+          icon: isLoading?const SizedBox(): Image(image: AssetImage(image),width: 0,height: 0,),
           label: isLoading? const ButtonLoadingWidget()
-                          : Text(text,style: Theme.of(context).textTheme.bodyLarge!.apply(color: foreground),))
+                          : Text(text.toUpperCase(),style: const TextStyle(
+            fontSize: 20
+          ),))
     );
   }
 

@@ -17,13 +17,12 @@ class Loginfooterwidget extends StatelessWidget {
     final controller = Get.put(LoginController());
     return Container(
       padding:
-          const EdgeInsets.only(top: gDefaultSize * 1.5, bottom: gDefaultSize),
+          const EdgeInsets.only(top: gDefaultSize-10, bottom: gDefaultSize),
       child: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Divider(height: 10),
-          const Text("OR"),
-          const SizedBox(height: gFormHeight - 20),
+          const Text("OR",style: TextStyle(fontSize: 15),),
+          const SizedBox(height: gFormHeight - 10),
           Obx(() => GSocialButton(
                 image: gGoogleLogoImage,
                 text: gSignInWithGoogle,

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
-import 'package:fyp/src/features/authentication/screens/login/login_screen.dart';
 import 'package:fyp/src/features/authentication/screens/mail_verification/mail_verification_Screen.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
