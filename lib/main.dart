@@ -4,11 +4,15 @@ import 'package:fyp/firebase_options.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:fyp/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
+
+  await GetStorage.init();
+
   runApp(const App());
 }
 
@@ -26,8 +30,9 @@ class App extends StatelessWidget {
       defaultTransition: Transition.rightToLeftWithFade,
       transitionDuration: const Duration(milliseconds: 500),
       home: const Scaffold(
+        backgroundColor: Colors.black,
         body: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(color: Colors.white),
         ),
       ),
     );

@@ -27,7 +27,7 @@ class Welcome extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: isDarkMode?[ Color(0xFFffffff), Color(0xFF000000)]:[ Color(0xffffb789), Color(0xffac99df)] ,
+            colors: isDarkMode?[ const Color(0xFFffffff), const Color(0xFF000000)]:[ const Color(0xffffb789), const Color(0xffac99df)] ,
           stops: [.10,.4]
         ),
       ),

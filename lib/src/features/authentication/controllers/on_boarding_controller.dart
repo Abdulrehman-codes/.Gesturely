@@ -7,6 +7,7 @@ import 'package:fyp/src/features/authentication/models/model_on_boarding.dart';
 import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_page_widget.dart';
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:liquid_swipe/PageHelpers/LiquidController.dart';
 
 class OnBoardingController extends GetxController{
@@ -50,6 +51,8 @@ class OnBoardingController extends GetxController{
     controller.animateToPage(page: nextPage);
     if (nextPage==3)
       {
+        final storage =GetStorage();
+        storage.write('isFirstTime', true);
         Get.offAll(()=>const Welcome());
       }
   }

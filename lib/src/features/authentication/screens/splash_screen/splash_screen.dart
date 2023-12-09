@@ -52,7 +52,7 @@ class SplashScreen extends StatelessWidget{
             child: Image(
                 width:100,
                 height:50,
-                image: isDarkMode? AssetImage(gesturelyWhite):AssetImage(gesturelyBlack),
+                image: isDarkMode? const AssetImage(gesturelyWhite):const AssetImage(gesturelyBlack),
           ),),
           GFadeInAnimation(
                 durationInMs: 1000,

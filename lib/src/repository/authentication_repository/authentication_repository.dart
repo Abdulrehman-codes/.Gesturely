@@ -1,16 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
 import 'package:fyp/src/features/authentication/screens/mail_verification/mail_verification_Screen.dart';
+import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
 import 'package:fyp/src/exceptions/g_exceptions.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
+
+  final deviceStorage =GetStorage();
   late final Rx<User?> _firebaseUser;
   final _auth = FirebaseAuth.instance;
   var verificationId = ' '.obs;
@@ -23,6 +28,11 @@ class AuthenticationRepository extends GetxController {
     _firebaseUser.bindStream(_auth.userChanges());
     setInitialScreen(_firebaseUser.value);
     // ever(firebaseUser, _setInitialScreen);
+  }
+
+  screenRedirect() async{
+   deviceStorage.writeIfNull('isFirstTime', false);
+   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const Welcome()):Get.offAll(()=>const OnBoardingScreen());
   }
 
   setInitialScreen(User? user) {
@@ -96,7 +106,7 @@ class AuthenticationRepository extends GetxController {
   Future<bool> verifyOTP(String otp) async {
     var credentials = await _auth.signInWithCredential(
         PhoneAuthProvider.credential(
-            verificationId: this.verificationId.value, smsCode: otp));
+            verificationId: verificationId.value, smsCode: otp));
     return credentials.user != null ? true : false;
   }
 
@@ -125,8 +135,13 @@ class AuthenticationRepository extends GetxController {
       _firebaseUser.value != null
           ? Get.offAll(() => const DashBoard())
           : Get.offAll(() => const SplashScreen());
-    } on FirebaseAuthException catch (e) {
-    } catch (_) {}
+    } on FirebaseAuthException catch(e){
+      final ex= GExceptions.fromCode(e.code);
+      throw ex.message;
+    }catch(_){
+      const ex = GExceptions();
+      throw ex.message;
+    }
   }
 
   Future<void> logout() async {
