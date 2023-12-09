@@ -14,27 +14,28 @@ class DashBoard extends StatefulWidget {
   State<DashBoard> createState() => _DashBoardState();
 }
 
-class _DashBoardState extends State<DashBoard>{
+class _DashBoardState extends State<DashBoard> {
   late Size mediaSize;
 
   @override
   Widget build(BuildContext context) {
-
-    mediaSize=MediaQuery.of(context).size;
+    mediaSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(gWelcomeScreenImage),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(gBoardPage2Color.withOpacity(0.2), BlendMode.dstATop),
-        )
-      ),
+          image: DecorationImage(
+        image: AssetImage(gWelcomeScreenImage),
+        fit: BoxFit.cover,
+        colorFilter: ColorFilter.mode(
+            gBoardPage2Color.withOpacity(0.2), BlendMode.dstATop),
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(children: [
-          Positioned(top:80, child: _buildTop()),
-          Positioned(bottom:0, child: _buildBottom()),
-        ],),
+        body: Stack(
+          children: [
+            Positioned(top: 80, child: _buildTop()),
+            Positioned(bottom: 0, child: _buildBottom()),
+          ],
+        ),
       ),
       // child: Scaffold(
       //   body: Container(
@@ -52,7 +53,8 @@ class _DashBoardState extends State<DashBoard>{
       // ),
     );
   }
-  Widget _buildTop(){
+
+  Widget _buildTop() {
     return SizedBox(
       width: mediaSize.width,
       child: const Column(
@@ -63,87 +65,68 @@ class _DashBoardState extends State<DashBoard>{
             size: 100,
             color: Colors.white,
           ),
-          Text("GESTURES",style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 40,
-            letterSpacing: 2
-          ),),
+          Text(
+            "GESTURES",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 40,
+                letterSpacing: 2),
+          ),
         ],
       ),
     );
   }
-  Widget _buildBottom(){
+
+  Widget _buildBottom() {
     return SizedBox(
       width: mediaSize.width,
       child: Card(
         color: Colors.white,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30)
-          )
-        ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30))),
         child: _buildForm(),
       ),
     );
   }
-  Widget _buildForm(){
+
+  Widget _buildForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Welcome",style: TextStyle(
-          color: Colors.black,
-          fontSize: 64,
-          fontWeight: FontWeight.bold,
-        ),),
+        Text(
+          "Welcome",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 64,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         SizedBox(height: 100),
         Row(
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            const SizedBox(
-              width: 10.0,
-            ),
-               ElevatedButton(
-
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.only(left: 30,right: 30),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                      // Adjust the radius as needed
-                    ),
-                  ),
-                  child: SizedBox(
-                    width: 50,
-                    height: 60,// Set the width to make it square
-                    child: Center(
-                      child: Text(
-                        "Library".toUpperCase(),
-                      ),
-                    ),
-                  ),
-                ),
-            const SizedBox(
-              width: 10.0,
-            ),
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.only(left: 30,right: 30),
+                padding: EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
-                  // Adjust the radius as needed
                 ),
               ),
               child: SizedBox(
                 width: 50,
-                height: 60,// Set the width to make it square
-                child: Center(
-                  child: Text(
-                    "Library".toUpperCase(),
-                  ),
+                height: 80, // Increase the height as needed
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.library_books),
+                    SizedBox(width: 8),
+                    Text(
+                      "Library".toUpperCase(),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -153,26 +136,57 @@ class _DashBoardState extends State<DashBoard>{
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.only(left: 30,right: 30),
+                padding: EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
-                  // Adjust the radius as needed
                 ),
               ),
               child: SizedBox(
                 width: 50,
-                height: 60,// Set the width to make it square
-                child: Center(
-                  child: Text(
-                    "Library".toUpperCase(),
-                  ),
+                height: 80, // Increase the height as needed
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.library_books),
+                    SizedBox(width: 8),
+                    Text(
+                      "Library".toUpperCase(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.only(left: 30, right: 30),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+              child: SizedBox(
+                width: 50,
+                height: 80, // Increase the height as needed
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.library_books),
+                    SizedBox(width: 8),
+                    Text(
+                      "Library".toUpperCase(),
+                    ),
+                  ],
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 50,),
-
+        SizedBox(
+          height: 100,
+        ),
       ],
     );
   }
