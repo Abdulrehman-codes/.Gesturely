@@ -1,5 +1,5 @@
 
-
+const String gDashboard="assets/images/dashboard_images/dashboard_background.png";
 
 const String gesturelyBlack="assets/images/splash_images/gesturely_black.png";
 const String gesturelyWhite="assets/images/splash_images/gesturely_white.png";
