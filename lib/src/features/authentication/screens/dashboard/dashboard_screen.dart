@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/src/constants/colors.dart';
 import 'package:fyp/src/constants/image_strings.dart';
+import 'package:fyp/src/features/authentication/screens/library/library.dart';
 import 'package:fyp/src/features/authentication/screens/profile/profile_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:get/get.dart';
@@ -121,7 +122,8 @@ class _DashBoardState extends State<DashBoard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () =>Get.to(()=>const Library()),
+
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(
@@ -179,12 +181,13 @@ class _DashBoardState extends State<DashBoard> {
               width: 10.0,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: (){},
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
+
               ),
               child: SizedBox(
                 width: 50,
