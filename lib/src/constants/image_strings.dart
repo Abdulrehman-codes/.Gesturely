@@ -1,10 +1,11 @@
 
-
+const String gDashboard="assets/images/dashboard_images/dashboard_background.png";
 
 const String gesturelyBlack="assets/images/splash_images/gesturely_black.png";
 const String gesturelyWhite="assets/images/splash_images/gesturely_white.png";
 const String gSplashTopIcon="assets/images/splash_images/birds.png";
 const String gSplashImage="assets/logo/logo.png";
+
 
 
 const String gBoardImage1= "assets/images/boarding_images/boarding_1.png";

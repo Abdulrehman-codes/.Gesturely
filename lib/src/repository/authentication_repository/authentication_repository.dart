@@ -11,6 +11,8 @@ import 'package:fyp/src/exceptions/g_exceptions.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../features/authentication/screens/nav_bar/nav_bar.dart';
+
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
 
@@ -32,7 +34,7 @@ class AuthenticationRepository extends GetxController {
 
   screenRedirect() async{
    deviceStorage.writeIfNull('isFirstTime', false);
-   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const Welcome()):Get.offAll(()=>const OnBoardingScreen());
+   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const AdminPanelMain()):Get.offAll(()=>const OnBoardingScreen());
   }
 
   setInitialScreen(User? user) {
