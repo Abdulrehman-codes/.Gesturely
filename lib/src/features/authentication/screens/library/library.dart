@@ -13,9 +13,9 @@ class _LibraryState extends State<Library> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
-          children: const [
+          children: [
             // Placeholder for your user cards or loading indicator
             Card(
               color: Colors.grey,

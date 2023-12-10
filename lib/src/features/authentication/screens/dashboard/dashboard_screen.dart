@@ -24,7 +24,7 @@ class _DashBoardState extends State<DashBoard> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(gWelcomeScreenImage),
+          image: const AssetImage(gWelcomeScreenImage),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             gBoardPage2Color.withOpacity(0.2),
@@ -87,7 +87,7 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  Widget buildProfileImage() => CircleAvatar(
+  Widget buildProfileImage() => const CircleAvatar(
     radius: 70,
     backgroundColor: Colors.grey,
     backgroundImage: AssetImage(gWelcomeScreenImage),
@@ -97,8 +97,8 @@ class _DashBoardState extends State<DashBoard> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 20,),
-        Text(
+        const SizedBox(height: 20,),
+        const Text(
           "Profile Name",
           style: TextStyle(
             color: Colors.black,
@@ -106,8 +106,8 @@ class _DashBoardState extends State<DashBoard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 5),
-        Text(
+        const SizedBox(height: 5),
+        const Text(
           "blah blah blah blah blah blah",
           style: TextStyle(
             color: Colors.black,
@@ -181,7 +181,7 @@ class _DashBoardState extends State<DashBoard> {
               width: 10.0,
             ),
             ElevatedButton(
-              onPressed: (){},
+              onPressed: ()=>Get.to(()=>const ProfileScreen()),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(

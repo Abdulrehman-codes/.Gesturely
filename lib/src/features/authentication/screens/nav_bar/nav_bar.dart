@@ -8,10 +8,10 @@ import '../../../../repository/authentication_repository/authentication_reposito
 class AdminPanelMain extends StatefulWidget {
   const AdminPanelMain({super.key});
   @override
-  _AdminPanelMainState createState() => _AdminPanelMainState();
+  AdminPanelMainState createState() => AdminPanelMainState();
 }
 
-class _AdminPanelMainState extends State<AdminPanelMain> {
+class AdminPanelMainState extends State<AdminPanelMain> {
   List pages = [
     const DashBoard(),
     const LoginScreen(),
