@@ -93,10 +93,7 @@ class SplashScreen extends StatelessWidget{
 
 
 
-
 // class SplashScreen extends StatefulWidget {
-//   const SplashScreen({Key? key}) : super(key: key);
-//
 //   @override
 //   _SplashScreenState createState() => _SplashScreenState();
 // }
@@ -108,24 +105,14 @@ class SplashScreen extends StatelessWidget{
 //   @override
 //   void initState() {
 //     super.initState();
-//     _controller = VideoPlayerController.network('');
+//     // Replace the video URL with your own video file or network URL
+//     _controller = VideoPlayerController.asset('assets/splash_video.mp4');
 //     _initializeVideoPlayerFuture = _controller.initialize();
-//     _controller.setLooping(true); // Set to true if you want the video to loop
-//   }
 //
-//   Future<void> _pickVideo() async {
-//     FilePickerResult? result = await FilePicker.platform.pickFiles(
-//       type: FileType.video,
-//       allowMultiple: false,
-//     );
+//     // Uncomment the next line to enable looping of the video
+//     // _controller.setLooping(true);
 //
-//     if (result != null) {
-//       File file = File(result.files.single.path!);
-//       _controller = VideoPlayerController.file(gLogoVideo as File);
-//       _initializeVideoPlayerFuture = _controller.initialize();
-//       _controller.setLooping(true); // Set to true if you want the video to loop
-//       setState(() {});
-//     }
+//     _controller.play();
 //   }
 //
 //   @override
@@ -137,31 +124,20 @@ class SplashScreen extends StatelessWidget{
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       body: Stack(
-//         children: [
-//           // Your existing code for other UI elements here
-//
-//           // Add the video player widget
-//           FutureBuilder(
-//             future: _initializeVideoPlayerFuture,
-//             builder: (context, snapshot) {
-//               if (snapshot.connectionState == ConnectionState.done) {
-//                 return AspectRatio(
-//                   aspectRatio: _controller.value.aspectRatio,
-//                   child: VideoPlayer(_controller),
-//                 );
-//               } else {
-//                 return Center(
-//                   child: CircularProgressIndicator(),
-//                 );
-//               }
-//             },
-//           ),
-//         ],
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _pickVideo,
-//         child: Icon(Icons.folder),
+//       body: FutureBuilder(
+//         future: _initializeVideoPlayerFuture,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.done) {
+//             // If the VideoPlayerController has finished initialization, use it to display the video
+//             return AspectRatio(
+//               aspectRatio: _controller.value.aspectRatio,
+//               child: VideoPlayer(_controller),
+//             );
+//           } else {
+//             // If the VideoPlayerController is still initializing, show a loading spinner
+//             return Center(child: CircularProgressIndicator());
+//           }
+//         },
 //       ),
 //     );
 //   }

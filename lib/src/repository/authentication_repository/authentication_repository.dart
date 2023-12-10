@@ -34,14 +34,14 @@ class AuthenticationRepository extends GetxController {
 
   screenRedirect() async{
    deviceStorage.writeIfNull('isFirstTime', false);
-   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const Welcome()):Get.offAll(()=>const OnBoardingScreen());
+   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const NavBar()):Get.offAll(()=>const OnBoardingScreen());
   }
 
   setInitialScreen(User? user) {
     user == null
         ? Get.offAll(() => const SplashScreen())
         : user.emailVerified
-            ? Get.offAll(() => const DashBoard())
+            ? Get.offAll(() => const NavBar())
             : Get.offAll(() => const MailVerification());
   }
 
@@ -118,7 +118,7 @@ class AuthenticationRepository extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       _firebaseUser.value != null
-          ? Get.offAll(() => const DashBoard())
+          ? Get.offAll(() => const NavBar())
           : Get.offAll(() => const SplashScreen());
     }  on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
@@ -133,7 +133,7 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _firebaseUser.value != null
-          ? Get.offAll(() => const DashBoard())
+          ? Get.offAll(() => const NavBar())
           : Get.offAll(() => const SplashScreen());
     } on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);

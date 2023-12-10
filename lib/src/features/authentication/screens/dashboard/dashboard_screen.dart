@@ -36,7 +36,7 @@ class _DashBoardState extends State<DashBoard> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
-            Positioned(top: 100, child: _buildTop()),
+            Positioned(top: 20, child: _buildTop()),
             Positioned(bottom: 0, child: _buildBottom()),
           ],
         ),
@@ -50,26 +50,35 @@ class _DashBoardState extends State<DashBoard> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Icon(
-          //   Icons.handshake,
-          //   size: 100,
-          //   color: Colors.white,
-          // ),
-          // Text(
-          //   "GESTURES",
-          //   style: TextStyle(
-          //     color: Colors.white,
-          //     fontWeight: FontWeight.bold,
-          //     fontSize: 40,
-          //     letterSpacing: 2,
-          //   ),
-          // ),
-          SizedBox(height: 30,),
-          buildProfileImage(), // Use the buildProfileImage method here
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white), // Set icon color to white
+                  color: Colors.black, // Set button color to black
+                  onPressed: () {
+                    // Handle left button press
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.person, color: Colors.white),
+                  onPressed: () {
+                    // Handle right button press
+                  },
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 30),
+          buildProfileImage(),
         ],
       ),
     );
   }
+
+
 
   Widget _buildBottom() {
     return SizedBox(

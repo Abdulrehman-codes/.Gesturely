@@ -5,13 +5,13 @@ import 'package:fyp/src/features/authentication/screens/login/login_screen.dart'
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
 import '../../../../repository/authentication_repository/authentication_repository.dart';
 
-class AdminPanelMain extends StatefulWidget {
-  const AdminPanelMain({super.key});
+class NavBar extends StatefulWidget {
+  const NavBar({super.key});
   @override
-  AdminPanelMainState createState() => AdminPanelMainState();
+  NavBarState createState() => NavBarState();
 }
 
-class AdminPanelMainState extends State<AdminPanelMain> {
+class NavBarState extends State<NavBar> {
   List pages = [
     const DashBoard(),
     const LoginScreen(),
