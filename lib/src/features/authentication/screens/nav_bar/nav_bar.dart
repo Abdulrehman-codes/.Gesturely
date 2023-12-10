@@ -45,10 +45,23 @@ class _AdminPanelMainState extends State<AdminPanelMain> {
         selectedIconTheme: const IconThemeData(color: Colors.black),
         unselectedIconTheme: const IconThemeData(color: Colors.black),
         selectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-          BottomNavigationBarItem(label: 'Camera', icon: Icon(Icons.camera_enhance_sharp)),
-          BottomNavigationBarItem(label: 'Share', icon: Icon(Icons.share)),
+        items: [
+          BottomNavigationBarItem(label: '', icon: Icon(Icons.home)),
+          BottomNavigationBarItem(
+            label: '',
+            icon: ClipOval(
+              child: Container(
+                width: 40,
+                height: 40,
+                color: Colors.black, // Set background color for the circular button
+                child: Icon(
+                  Icons.camera_enhance_sharp,
+                  color: Colors.white, // Set icon color
+                ),
+              ),
+            ),
+          ),
+          BottomNavigationBarItem(label: '', icon: Icon(Icons.share)),
         ],
       ),
     );

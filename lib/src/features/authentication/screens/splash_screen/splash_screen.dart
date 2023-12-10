@@ -1,4 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fyp/src/constants/image_strings.dart';
+import 'package:video_player/video_player.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:get/get.dart';
+import '../../../../constants/video_strings.dart';
 import 'package:fyp/src/common_widgets/fade_in_animation/animation_design.dart';
 import 'package:fyp/src/common_widgets/fade_in_animation/fade_in_animation_controller.dart';
 import 'package:fyp/src/common_widgets/fade_in_animation/fade_in_animation_model.dart';
@@ -6,7 +12,7 @@ import 'package:fyp/src/constants/colors.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
-import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatelessWidget{
   const SplashScreen({super.key});
@@ -43,26 +49,26 @@ class SplashScreen extends StatelessWidget{
           GFadeInAnimation(
             durationInMs: 1000,
             animate:GAnimatePosition(
-                 topBefore: 0,
-                 topAfter: 80,
-                 leftBefore: 0,
-                 leftAfter: 0,
-                 rightAfter: 0,
-                 rightBefore: 0,),
+              topBefore: 0,
+              topAfter: 80,
+              leftBefore: 0,
+              leftAfter: 0,
+              rightAfter: 0,
+              rightBefore: 0,),
             child: Image(
-                width:100,
-                height:50,
-                image: isDarkMode? const AssetImage(gesturelyWhite):const AssetImage(gesturelyBlack),
-          ),),
+              width:100,
+              height:50,
+              image: isDarkMode? const AssetImage(gesturelyWhite):const AssetImage(gesturelyBlack),
+            ),),
           GFadeInAnimation(
-                durationInMs: 1000,
-              animate:GAnimatePosition(bottomBefore: -100,
-              bottomAfter: 200),
-              child: const Image(
-                  width:400,
-                  //height:200,
-                  image: AssetImage(gSplashImage)),
-            ),
+            durationInMs: 1000,
+            animate:GAnimatePosition(bottomBefore: -100,
+                bottomAfter: 200),
+            child: const Image(
+                width:400,
+                //height:200,
+                image: AssetImage(gSplashImage)),
+          ),
 
           //
           // Positioned(
@@ -84,3 +90,79 @@ class SplashScreen extends StatelessWidget{
 
 }
 
+
+
+
+
+// class SplashScreen extends StatefulWidget {
+//   const SplashScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   _SplashScreenState createState() => _SplashScreenState();
+// }
+//
+// class _SplashScreenState extends State<SplashScreen> {
+//   late VideoPlayerController _controller;
+//   late Future<void> _initializeVideoPlayerFuture;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = VideoPlayerController.network('');
+//     _initializeVideoPlayerFuture = _controller.initialize();
+//     _controller.setLooping(true); // Set to true if you want the video to loop
+//   }
+//
+//   Future<void> _pickVideo() async {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       type: FileType.video,
+//       allowMultiple: false,
+//     );
+//
+//     if (result != null) {
+//       File file = File(result.files.single.path!);
+//       _controller = VideoPlayerController.file(gLogoVideo as File);
+//       _initializeVideoPlayerFuture = _controller.initialize();
+//       _controller.setLooping(true); // Set to true if you want the video to loop
+//       setState(() {});
+//     }
+//   }
+//
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           // Your existing code for other UI elements here
+//
+//           // Add the video player widget
+//           FutureBuilder(
+//             future: _initializeVideoPlayerFuture,
+//             builder: (context, snapshot) {
+//               if (snapshot.connectionState == ConnectionState.done) {
+//                 return AspectRatio(
+//                   aspectRatio: _controller.value.aspectRatio,
+//                   child: VideoPlayer(_controller),
+//                 );
+//               } else {
+//                 return Center(
+//                   child: CircularProgressIndicator(),
+//                 );
+//               }
+//             },
+//           ),
+//         ],
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _pickVideo,
+//         child: Icon(Icons.folder),
+//       ),
+//     );
+//   }
+// }
