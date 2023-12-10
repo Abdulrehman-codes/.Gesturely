@@ -26,10 +26,9 @@ class SignUpController extends GetxController {
     String? error = AuthenticationRepository.instance
         .createUserwithEmailandPassword(email, password) as String?;
     if (error != null) {
-      Get.showSnackbar(GetSnackBar(message: error.toString(),));
+      Get.showSnackbar(GetSnackBar(message: error.toString(),snackPosition: SnackPosition.BOTTOM,));
     }
   }
-
   void phoneAuthentication(String phoneNo) {
     AuthenticationRepository.instance.phoneAuthentication(phoneNo);
   }
@@ -37,16 +36,12 @@ class SignUpController extends GetxController {
   Future<void> createUser() async {
     try {
       isLoading.value = true;
-      // if (!signupFormKey.currentState!.validate()) {
-      //   isLoading.value = false;
-      //   return;
-      // }
 
       final user = UserModel(
         email: email.text.trim(),
         password: password.text.trim(),
         fullName: fullName.text.trim(),
-        phoneNo: phoneNo.text.trim(),);
+        phoneNo: '+92${phoneNo.text.trim()}',);
 
       final auth = AuthenticationRepository.instance;
       await AuthenticationRepository.instance.createUserwithEmailandPassword(
@@ -55,7 +50,7 @@ class SignUpController extends GetxController {
       auth.setInitialScreen(auth.firebaseUser);
     }catch(e){
       isLoading.value=false;
-      Get.snackbar("Error", e.toString(),snackPosition: SnackPosition.BOTTOM,duration: const Duration(seconds: 5));
+      Get.snackbar("Error", e.toString(),snackPosition: SnackPosition.BOTTOM,duration: const Duration(seconds: 3));
     }
     // phoneAuthentication(user.phoneNo);
     // Get.to(()=> const OTPScreen());

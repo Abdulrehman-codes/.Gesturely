@@ -34,6 +34,15 @@ class Loginfooterwidget extends StatelessWidget {
                         : () => controller.googleSignIn(),
               )),
           const SizedBox(height: gFormHeight - 20),
+          TextButton(onPressed: (){
+            Get.offAll(()=>const SignUpScreen());
+          },
+              child: Text.rich(TextSpan(
+                  children: [
+                    TextSpan(text: gDontHaveAnAccount,style: Theme.of(context).textTheme.bodyText1),
+                    TextSpan(text: gSignup.toUpperCase(),style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.blue),)
+                  ]
+              )))
         ],
       ),
     );

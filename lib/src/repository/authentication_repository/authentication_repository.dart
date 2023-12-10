@@ -118,14 +118,12 @@ class AuthenticationRepository extends GetxController {
       _firebaseUser.value != null
           ? Get.offAll(() => const DashBoard())
           : Get.offAll(() => const SplashScreen());
-    } on FirebaseAuthException catch (e) {
-      final ex = SignupWithEmailAndPasswordFailure.code(e.code);
-      print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-      throw ex;
-    } catch (_) {
-      const ex = SignupWithEmailAndPasswordFailure();
-      print('EXCEPTION - ${ex.message}');
-      throw ex;
+    }  on FirebaseAuthException catch(e){
+      final ex= GExceptions.fromCode(e.code);
+      throw ex.message;
+    }catch(_){
+      const ex = GExceptions();
+      throw ex.message;
     }
   }
 

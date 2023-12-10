@@ -1,12 +1,9 @@
 class GExceptions implements Exception {
-  /// The associated error message.
+
   final String message;
 
-  /// {@macro log_in_with_email_and_password_failure}
   const GExceptions([this.message = 'An unknown exception occurred.']);
 
-  /// Create an authentication message
-  /// from a firebase authentication exception code.
   factory GExceptions.fromCode(String code) {
     switch (code) {
       case 'email-already-in-use':
@@ -17,15 +14,16 @@ class GExceptions implements Exception {
         return const GExceptions ('Please enter a stronger password. ');
       case 'user-disabled':
         return const GExceptions ('This user has been disabled. Please contact support for help.');
-      case 'user-not-found':
+      case 'auth/user-not-found':
         return const GExceptions ('Invalid Details, please create an account.');
+      case 'auth/wrong-password':
       case 'wrong-password':
         return const GExceptions ('Incorrect password, please try again.');
       case 'too-many-requests':
         return const GExceptions ('Too many requests, Service Temporarily blocked.');
       case 'invalid-argument':
         return const GExceptions ('An invalid argument was provided to an Authentication method.');
-      case 'invalid-password':
+      case 'auth/invalid-password':
         return const GExceptions ('Incorrect password, please try again.');
       case 'invalid-phone-number':
         return const GExceptions ('The provided Phone Number is invalid.');

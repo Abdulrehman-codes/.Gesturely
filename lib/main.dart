@@ -12,7 +12,6 @@ Future<void> main() async {
       .then((value) => Get.put(AuthenticationRepository()));
 
   await GetStorage.init();
-
   runApp(const App());
 }
 

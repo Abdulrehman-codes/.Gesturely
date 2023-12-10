@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:fyp/src/common_widgets/button/primary_button.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
+import 'package:fyp/src/exceptions/g_exceptions.dart';
 import 'package:fyp/src/features/authentication/controllers/signup_controller.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -27,6 +27,12 @@ class SignUpFormWidget extends StatelessWidget {
             children: [
             TextFormField(
             controller: controller.fullName,
+            validator: (value){
+              if(value!.isEmpty)
+                {
+                  Get.snackbar("Error", "Enter Name",snackPosition: SnackPosition.BOTTOM);
+                }
+            },
             decoration: const InputDecoration(
               label: Text(gFullname),
               prefixIcon: Icon(Icons.person_outline_rounded),
@@ -35,6 +41,12 @@ class SignUpFormWidget extends StatelessWidget {
           const SizedBox(height: gFormHeight - 20),
           TextFormField(
             controller: controller.email,
+            validator: (value){
+              if(value!.isEmpty)
+              {
+                Get.snackbar("Error", "Enter Email",snackPosition: SnackPosition.BOTTOM);
+              }
+            },
             decoration: const InputDecoration(
               label: Text(gEmail),
               prefixIcon: Icon(Icons.email_outlined),
@@ -43,9 +55,16 @@ class SignUpFormWidget extends StatelessWidget {
           const SizedBox(height: gFormHeight - 20),
           TextFormField(
             controller: controller.phoneNo,
+            validator: (value){
+              if(value!.length < 10)
+                {
+                  Get.snackbar("Error", "Enter valid Phone Number",snackPosition: SnackPosition.BOTTOM);
+                }
+            },
             decoration: const InputDecoration(
               label: Text(gPhoneNo),
               prefixIcon: Icon(Icons.numbers),
+              prefixText: "+92 ",
             ),
           ),
           const SizedBox(height: gFormHeight - 20),
@@ -53,6 +72,22 @@ class SignUpFormWidget extends StatelessWidget {
                 () =>
                 TextFormField(
                   controller: controller.password,
+                  validator: (value) {
+                    RegExp regex =
+                    RegExp(
+                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+                    if (value!.isEmpty) {
+                      Get.snackbar("Error", "Enter password",snackPosition: SnackPosition.BOTTOM);
+                    } else {
+                      if (!regex.hasMatch(value)) {
+                        Get.snackbar("Error", "Password Must Contain \n 1 Uppercase Alphabet \n 1 Lowercase Alphabet \n 1 Digit",snackPosition: SnackPosition.BOTTOM);
+                      }
+                      else {
+                        return null;
+
+                      }
+                    }
+                  },
                   obscureText: !controller.showPassword.value,
                   decoration: InputDecoration(
                       label: const Text(gPassword),
@@ -73,7 +108,12 @@ class SignUpFormWidget extends StatelessWidget {
                     isLoading: controller.isLoading.value? true:false,
                       text: gSignup,
                       image: gGoogleLogoImage,
-                      onPressed: controller.isLoading.value?(){}:()=>controller.createUser(),
+                      onPressed: controller.isLoading.value?(){}:(){
+                      if(_formKey.currentState!.validate())
+                        {
+                          controller.createUser();
+                        }
+                      },
 
           )
       )

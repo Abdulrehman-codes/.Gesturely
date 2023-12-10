@@ -49,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
                         child: Text.rich(TextSpan(
                           children: [
                             TextSpan(text: gAlreadyHaveAnAccount,style: Theme.of(context).textTheme.bodyText1),
-                            TextSpan(text: gLogin.toUpperCase(),style: Theme.of(context).textTheme.bodyText1)
+                            TextSpan(text: gLogin.toUpperCase(),style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.blue))
                           ]
                         )))
                   ],

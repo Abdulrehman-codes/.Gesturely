@@ -102,9 +102,37 @@ class ProfileScreen extends StatelessWidget {
                 textColor: Colors.red,
                 endIcon: false,
                 onPress: () {
-                  AuthenticationRepository.instance.logout();
+                  // Show the confirmation dialog
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title:  Text("Logout Confirmation",style: Theme.of(context).textTheme.bodyMedium),
+                        content:  Text("Are you sure you want to log out?",style: Theme.of(context).textTheme.bodyMedium),
+                        actions: <Widget>[
+                          // Cancel button
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child: Text("Cancel",style: Theme.of(context).textTheme.bodyMedium),
+                          ),
+                          // Logout button
+                          TextButton(
+                            onPressed: () {
+                              // Perform the logout action
+                              AuthenticationRepository.instance.logout();
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            child:  Text(gLogout,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.red)),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               ),
+
             ],
           ),
         ),
