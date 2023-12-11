@@ -1,5 +1,5 @@
 
-const String gDashboard="assets/images/dashboard_images/dashboard_background.png";
+const String gDashboard="assets/images/dashboard_images/dashboard_background.jpg";
 
 const String gesturelyBlack="assets/images/splash_images/gesturely_black.png";
 const String gesturelyWhite="assets/images/splash_images/gesturely_white.png";
@@ -23,3 +23,4 @@ const String gGoogleLogoImage="assets/logo/glogo.png";
 const String gForgetPasswordImage= "assets/images/forget_password/forget_password.png";
 
 const String gProfileImage="assets/images/profile/itachi.jpg";
+const String gEmptyProfile="assets/images/profile/empty_profile.png";

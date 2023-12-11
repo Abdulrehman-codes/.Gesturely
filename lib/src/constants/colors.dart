@@ -14,5 +14,6 @@ const gBoardPage1Color=Color(0xffffb789);
 const gBoardPage2Color=Color(0xffac99df);
 const gBoardPage3Color=Color(0xffffb789);
 
+const gLoginPage=Color(0xffffd4b7);
 
 const gGrey=Color(0xffa6a6a6);

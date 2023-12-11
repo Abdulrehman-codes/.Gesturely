@@ -44,7 +44,7 @@ class OnBoardingController extends GetxController{
 
     )
   ];
-  skip()=>Get.offAll(()=>const Welcome());
+  skip()=>Get.offAll(()=>const Welcome(),transition: Transition.circularReveal);
   animateToNextSlide()
   {
     int nextPage=controller.currentPage+1;
@@ -53,7 +53,7 @@ class OnBoardingController extends GetxController{
       {
         final storage =GetStorage();
         storage.write('isFirstTime', true);
-        Get.offAll(()=>const Welcome());
+        Get.offAll(()=>const Welcome(),transition: Transition.circularReveal);
       }
   }
   onPageChangedCallback(int activePageIndex)=>currentPage.value=activePageIndex;
