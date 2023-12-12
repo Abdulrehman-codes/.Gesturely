@@ -4,6 +4,9 @@ import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/features/authentication/screens/library/library.dart';
 import 'package:fyp/src/features/authentication/screens/profile/profile_screen.dart';
 import 'package:get/get.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -14,6 +17,7 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   late Size mediaSize;
+  File? _image; // Add this line to hold the selected image
 
   @override
   Widget build(BuildContext context) {
@@ -93,10 +97,68 @@ class _DashBoardState extends State<DashBoard> {
     );
   }
 
-  Widget buildProfileImage() => const CircleAvatar(
-    radius: 70,
-    backgroundColor: Colors.grey,
-    backgroundImage: AssetImage(gEmptyProfile),
+  void _showPicker() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('Photo Library'),
+                onTap: () {
+                  _imgFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_camera),
+                title: Text('Camera'),
+                onTap: () {
+                  _imgFromCamera();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _imgFromGallery() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+      });
+    } else {
+      print('No image selected.');
+    }
+  }
+
+  Future<void> _imgFromCamera() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+    if (image != null) {
+      setState(() {
+        _image = File(image.path);
+      });
+    } else {
+      print('No image taken.');
+    }
+  }
+
+  Widget buildProfileImage() => GestureDetector(
+    onTap: _showPicker, // Call _showPicker on tap
+    child: CircleAvatar(
+      radius: 70,
+      backgroundColor: Colors.grey,
+      backgroundImage:
+      _image != null ? FileImage(_image!) : AssetImage(gEmptyProfile) as ImageProvider<Object>,
+    ),
   );
 
   Widget _buildForm() {
@@ -105,7 +167,7 @@ class _DashBoardState extends State<DashBoard> {
       children: [
         const SizedBox(height: 20),
         const Text(
-          "Profile Name",
+          "Your Name Here",
           style: TextStyle(
             color: Colors.black,
             fontSize: 30,
@@ -114,7 +176,7 @@ class _DashBoardState extends State<DashBoard> {
         ),
         const SizedBox(height: 5),
         const Text(
-          "blah blah blah blah blah blah",
+          "Your Information Here",
           style: TextStyle(
             color: Colors.black,
             fontSize: 10,
