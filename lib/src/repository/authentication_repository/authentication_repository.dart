@@ -39,7 +39,7 @@ class AuthenticationRepository extends GetxController {
 
   setInitialScreen(User? user) {
     user == null
-        ? Get.offAll(() => const SplashScreen())
+        ? Get.offAll(() => SplashScreen())
         : user.emailVerified
             ? Get.offAll(() => const NavBar())
             : Get.offAll(() => const MailVerification());
@@ -119,7 +119,7 @@ class AuthenticationRepository extends GetxController {
           email: email, password: password);
       _firebaseUser.value != null
           ? Get.offAll(() => const NavBar())
-          : Get.offAll(() => const SplashScreen());
+          : Get.offAll(() => SplashScreen());
     }  on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
       throw ex.message;
@@ -134,7 +134,7 @@ class AuthenticationRepository extends GetxController {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _firebaseUser.value != null
           ? Get.offAll(() => const NavBar())
-          : Get.offAll(() => const SplashScreen());
+          : Get.offAll(() => SplashScreen());
     } on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
       throw ex.message;
