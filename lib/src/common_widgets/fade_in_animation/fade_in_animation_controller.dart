@@ -10,7 +10,6 @@ class FadeInAnimationController extends GetxController{
 
   RxBool animate = false.obs;
 
-
   Future startSplashAnimation() async {
     await Future.delayed(const Duration(milliseconds: 500));
     animate.value = true;

@@ -55,11 +55,13 @@ class SignUpFormWidget extends StatelessWidget {
           const SizedBox(height: gFormHeight - 20),
           TextFormField(
             controller: controller.phoneNo,
-            validator: (value){
-              if(value!.length < 10)
-                {
-                  Get.snackbar("Error", "Enter valid Phone Number",snackPosition: SnackPosition.BOTTOM);
-                }
+            validator: (value)
+            {
+              if(value!.isEmpty||value.length<10)
+              {
+                Get.snackbar("Error", "Enter valid Phone Number",snackPosition: SnackPosition.BOTTOM);
+              }
+              return null;
             },
             decoration: const InputDecoration(
               label: Text(gPhoneNo),

@@ -35,7 +35,7 @@ class MailVerification extends StatelessWidget {
                 style: Theme
                     .of(context)
                     .textTheme
-                    .bodyMedium,
+                    .bodyLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox (height: gDefaultSize * 2),

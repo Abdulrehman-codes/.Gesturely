@@ -24,3 +24,4 @@ const String gForgetPasswordImage= "assets/images/forget_password/forget_passwor
 
 const String gProfileImage="assets/images/profile/itachi.jpg";
 const String gEmptyProfile="assets/images/profile/empty_profile.png";
+const String gSetting="assets/images/profile/setting.png";
