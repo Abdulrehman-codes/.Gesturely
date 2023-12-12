@@ -1,11 +1,12 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:fyp/src/constants/text_strings.dart';
 import 'package:fyp/src/features/authentication/screens/mail_verification/mail_verification_Screen.dart';
 import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:fyp/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:fyp/src/features/authentication/screens/welcome/welcome_screen.dart';
-import 'package:fyp/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:get/get.dart';
 import 'package:fyp/src/exceptions/g_exceptions.dart';
 import 'package:get_storage/get_storage.dart';
@@ -34,7 +35,7 @@ class AuthenticationRepository extends GetxController {
 
   screenRedirect() async{
    deviceStorage.writeIfNull('isFirstTime', false);
-   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const NavBar(),transition: Transition.fadeIn):Get.offAll(()=>const OnBoardingScreen());
+   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const Welcome(),transition: Transition.fadeIn):Get.offAll(()=>const OnBoardingScreen());
   }
 
   setInitialScreen(User? user) {
@@ -122,7 +123,7 @@ class AuthenticationRepository extends GetxController {
           : Get.offAll(() => const SplashScreen());
     }  on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
-      throw ex.message;
+      throw e.message!;
     }catch(_){
       const ex = GExceptions();
       throw ex.message;
@@ -137,7 +138,7 @@ class AuthenticationRepository extends GetxController {
           : Get.offAll(() => const SplashScreen());
     } on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
-      throw ex.message;
+      throw e.message!;
     }catch(_){
       const ex = GExceptions();
       throw ex.message;
@@ -151,7 +152,7 @@ class AuthenticationRepository extends GetxController {
       Get.offAll(() => const Welcome());
     }on FirebaseAuthException catch(e){
       final ex= GExceptions.fromCode(e.code);
-      throw ex.message;
+      throw e.message!;
     }catch(_){
       const ex = GExceptions();
       throw ex.message;

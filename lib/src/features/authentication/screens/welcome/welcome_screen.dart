@@ -74,35 +74,18 @@ class Welcome extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: OutlinedButton(
-                              onPressed: () {
-                                Get.to(
-                                      () => const LoginScreen(),
-                                  transition: Transition.fadeIn, // Fade-in transition for the new screen
-                                )!.then((value) {
-                                  // Code here will be executed after the new screen is popped.
-                                  // You can put any additional code you want to execute after navigation.
-                                  // For example, you can use this callback to trigger actions on the previous screen.
-                                });
-                              },
-                              child: Text(gLogin.toUpperCase(), style: Theme.of(context).textTheme.bodyText1),
-                            ),
+                              child: OutlinedButton(
+                                  onPressed: () =>Get.to(()=>const LoginScreen()),
+                                  child: Text(gLogin.toUpperCase(),style: Theme.of(context).textTheme.bodyText1,))),
+                          const SizedBox(
+                            width: 10.0,
                           ),
-                          const SizedBox(width: 10.0),
                           Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Get.to(
-                                      () => const SignUpScreen(),
-                                  transition: Transition.fadeIn, // Fade-in transition for the new screen
-                                );
-                              },
-                              child: Text(gSignup.toUpperCase()),
-                            ),
-                          ),
+                              child: ElevatedButton(
+                                  onPressed: () =>Get.to(()=> const SignUpScreen()),
+                                  child: Text(gSignup.toUpperCase()))),
                         ],
                       )
-
                     ],
                   ),
                 ),

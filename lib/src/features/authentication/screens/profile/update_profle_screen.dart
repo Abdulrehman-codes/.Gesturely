@@ -52,24 +52,10 @@ class UpdateProfileScreen extends StatelessWidget {
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
                                 child: const Image(
-                                  image: AssetImage(gProfileImage),
+                                  image: AssetImage(gEmptyProfile),
                                 )),
                           ),
                           const SizedBox(height: 20),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                color: gPrimaryColor,
-                              ),
-                              child: const Icon(LineAwesomeIcons.camera,
-                                  color: Colors.black, size: 20),
-                            ),
-                          ),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -137,35 +123,35 @@ class UpdateProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: [
-                                  const Text.rich(TextSpan(
-                                      text: gJoined,
-                                      style: TextStyle(fontSize: 12),
-                                      children: [
-                                        TextSpan(
-                                          text: gJoinedAt,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
-                                        )
-                                      ])),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                      Colors.redAccent.withOpacity(0.1),
-                                      elevation: 0,
-                                      foregroundColor: Colors.red,
-                                      shape: const StadiumBorder(),
-                                      side: BorderSide.none,
-                                    ),
-                                    child: const Text(gDelete),
-                                  )
-                                ],
-                              ),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment
+                              //       .spaceBetween,
+                              //   children: [
+                              //     const Text.rich(TextSpan(
+                              //         text: gJoined,
+                              //         style: TextStyle(fontSize: 12),
+                              //         children: [
+                              //           TextSpan(
+                              //             text: gJoinedAt,
+                              //             style: TextStyle(
+                              //                 fontWeight: FontWeight.bold,
+                              //                 fontSize: 12),
+                              //           )
+                              //         ])),
+                              //     ElevatedButton(
+                              //       onPressed: () {},
+                              //       style: ElevatedButton.styleFrom(
+                              //         backgroundColor:
+                              //         Colors.redAccent.withOpacity(0.1),
+                              //         elevation: 0,
+                              //         foregroundColor: Colors.red,
+                              //         shape: const StadiumBorder(),
+                              //         side: BorderSide.none,
+                              //       ),
+                              //       child: const Text(gDelete),
+                              //     )
+                              //   ],
+                              // ),
                             ],
                           ))
                     ],

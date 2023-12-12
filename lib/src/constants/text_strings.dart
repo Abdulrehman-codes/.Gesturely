@@ -65,8 +65,8 @@ const String gDelete="Delete";
 const String gJoined="Joined";
 const String gJoinedAt="jabba jabba date";
 
-const String gEmailVerificationTitle="Email Verifcation Title";
-const String gEmailVerificationSubTitle="Email Verifcation SubTitle";
+const String gEmailVerificationTitle="Verify your email address";
+const String gEmailVerificationSubTitle="We have just send email verification link on your email. Please check and click on that link to verify your Email address. \n\n if not auto redirected after verification, click on the Continue button";
 const String gContinue="Continue";
 const String gResendEmailLink="Resend Email Link";
 const String gBackToLogin="Back to Login";

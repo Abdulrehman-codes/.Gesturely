@@ -44,30 +44,28 @@ class ProfileScreen extends StatelessWidget {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: const Image(
-                          image: AssetImage(gProfileImage),
+                          image: AssetImage(gEmptyProfile),
                         )),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: gPrimaryColor,
-                      ),
-                      child: const Icon(LineAwesomeIcons.alternate_pencil,
-                          color: Colors.black, size: 20),
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   right: 0,
+                  //   child: Container(
+                  //     width: 35,
+                  //     height: 35,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(100),
+                  //       color: gPrimaryColor,
+                  //     ),
+                  //     child: const Icon(LineAwesomeIcons.alternate_pencil,
+                  //         color: Colors.black, size: 20),
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 10),
               Text(gProfileHeading,
                   style: Theme.of(context).textTheme.headline4),
-              Text(gProfileSubHeading,
-                  style: Theme.of(context).textTheme.bodyText2),
               const SizedBox(height: 10),
               SizedBox(
                 width: 200,

@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
                       r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
                   final regex = RegExp(pattern);
                   if (value!.isEmpty) {
-                    Get.snackbar("Error", "Enter password",
+                    Get.snackbar("Error", "Enter Email",
                         snackPosition: SnackPosition.BOTTOM);
                   } else {
                     if (!regex.hasMatch(value)) {
@@ -54,12 +54,12 @@ class LoginForm extends StatelessWidget {
                   labelText: gEmail,
                   hintText: gEmail,
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87, width: 2.0), // Increase the width for a bold border
+                    borderSide: const BorderSide(color: Colors.black87, width: 2.0),
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87, width: 1.0),
-                    borderRadius: BorderRadius.circular(100.0), // Adjust border radius if needed
+                    borderSide: const BorderSide(color: Colors.black87, width: 1.0),
+                    borderRadius: BorderRadius.circular(100.0),
                   ),
                 ),
               ),
@@ -67,6 +67,14 @@ class LoginForm extends StatelessWidget {
               Obx(
                 () => TextFormField(
                   controller: controller.password,
+                  validator: (value){
+                    if (value!.isEmpty)
+                      {
+                        Get.snackbar("Error", "Enter Password",
+                            snackPosition: SnackPosition.BOTTOM);
+                      }
+
+                  },
                   obscureText: !controller.showPassword.value,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock),
