@@ -34,8 +34,10 @@ class AuthenticationRepository extends GetxController {
   }
 
   screenRedirect() async{
-   deviceStorage.writeIfNull('isFirstTime', false);
-   deviceStorage.read('isFirstTime')!=false?Get.offAll(()=>const Welcome(),transition: Transition.fadeIn):Get.offAll(()=>const OnBoardingScreen());
+   deviceStorage.writeIfNull('isFirstTime', true);
+
+   deviceStorage.read('isFirstTime') != true?Get.offAll(()=>const Welcome(),transition: Transition.fadeIn):Get.offAll(()=>const OnBoardingScreen());
+
   }
 
   setInitialScreen(User? user) {

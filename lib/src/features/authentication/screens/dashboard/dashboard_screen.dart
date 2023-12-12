@@ -121,9 +121,9 @@ class _DashBoardState extends State<DashBoard> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Container(width: mediaSize.width, height: 3, color: Colors.black),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -141,11 +141,11 @@ class _DashBoardState extends State<DashBoard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.library_books),
-                    SizedBox(height: 8),
+                    const Icon(Icons.library_books),
+                    const SizedBox(height: 8),
                     Text(
                       "Library".toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),
@@ -168,11 +168,11 @@ class _DashBoardState extends State<DashBoard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.library_books),
-                    SizedBox(height: 8),
+                    const Icon(Icons.library_books),
+                    const SizedBox(height: 8),
                     Text(
                       "Cmd".toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),
@@ -182,7 +182,7 @@ class _DashBoardState extends State<DashBoard> {
             ),
             const SizedBox(width: 10.0),
             ElevatedButton(
-              onPressed: () => Get.to(() => const ProfileScreen()),
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(
@@ -195,11 +195,11 @@ class _DashBoardState extends State<DashBoard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.library_books),
+                    const Icon(Icons.library_books),
                     SizedBox(height: 8),
                     Text(
                       "Custom".toUpperCase(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 10,
                       ),
                     ),

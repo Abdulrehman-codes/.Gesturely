@@ -51,8 +51,8 @@ class OnBoardingController extends GetxController{
     controller.animateToPage(page: nextPage);
     if (nextPage==3)
       {
-        final storage =GetStorage();
-        storage.write('isFirstTime', true);
+        final storage = GetStorage();
+        storage.write('isFirstTime', false);
         Get.offAll(()=>const Welcome(),transition: Transition.circularReveal);
       }
   }

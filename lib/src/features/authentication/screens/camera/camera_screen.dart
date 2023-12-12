@@ -32,7 +32,7 @@ class _CameraScreenState extends State<CameraScreen> {
           return;
         }
         setState(() => _isCameraInitialized = true);
-        _timer = Timer(Duration(seconds: 3), () => _captureAndSavePhoto());
+        _timer = Timer(const Duration(seconds: 3), () => _captureAndSavePhoto());
       });
     }
   }
@@ -43,8 +43,8 @@ class _CameraScreenState extends State<CameraScreen> {
     }
 
     final XFile file = await _controller!.takePicture();
-    final Directory? appDirectory = await getApplicationDocumentsDirectory();
-    final String picturePath = '${appDirectory!.path}/${DateTime.now().toIso8601String()}.png';
+    final Directory appDirectory = await getApplicationDocumentsDirectory();
+    final String picturePath = '${appDirectory.path}/${DateTime.now().toIso8601String()}.png';
     final File pictureFile = File(picturePath);
 
     await pictureFile.writeAsBytes(await file.readAsBytes());
@@ -74,13 +74,13 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   Widget build(BuildContext context) {
     if (!_isCameraInitialized) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Camera')),
+      appBar: AppBar(title: const Text('Camera')),
       body: CameraPreview(_controller!), // Display the camera preview.
     );
   }
