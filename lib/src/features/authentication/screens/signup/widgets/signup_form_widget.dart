@@ -33,11 +33,11 @@ class SignUpFormWidget extends StatelessWidget {
 
               if(value!.isEmpty)
                 {
-                  Get.snackbar("Error", "Enter Name",snackPosition: SnackPosition.BOTTOM);
+                  return( "Enter Name");
                 }
               else if (!regex.hasMatch(value))
               {
-                Get.snackbar("Error", "Digits not allowed", snackPosition: SnackPosition.BOTTOM);
+                return( "Digits not allowed");
               }
             },
             decoration: const InputDecoration(
@@ -59,12 +59,10 @@ class SignUpFormWidget extends StatelessWidget {
                   r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
               final regex = RegExp(pattern);
               if (value!.isEmpty) {
-                Get.snackbar("Error", "Enter Email",
-                    snackPosition: SnackPosition.BOTTOM);
+                return( "Enter Email");
               } else {
                 if (!regex.hasMatch(value)) {
-                  Get.snackbar("Error", "Enter a valid Email",
-                      snackPosition: SnackPosition.BOTTOM);
+                  return( "Enter a valid Email");
                 } else {
                   return null;
                 }
@@ -82,7 +80,7 @@ class SignUpFormWidget extends StatelessWidget {
             {
               if(value!.isEmpty||value.length<10)
               {
-                Get.snackbar("Error", "Enter valid Phone Number",snackPosition: SnackPosition.BOTTOM);
+               return( "Enter valid Phone Number");
               }
               return null;
             },
@@ -102,10 +100,13 @@ class SignUpFormWidget extends StatelessWidget {
                     RegExp(
                         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
                     if (value!.isEmpty) {
-                      Get.snackbar("Error", "Enter password",snackPosition: SnackPosition.BOTTOM);
+                      return( "Enter password");
                     } else {
                       if (!regex.hasMatch(value)) {
-                        Get.snackbar("Error", "Password Must Contain \n 1 Uppercase Alphabet \n 1 Lowercase Alphabet \n 1 Digit",snackPosition: SnackPosition.BOTTOM);
+                        return( "Password Must Contain \n 1 Uppercase Alphabet \n 1 Lowercase Alphabet \n 1 Digit");
+                      }
+                      else if(value!.length<8){
+                        return("Password length must be 8");
                       }
                     }
                   },

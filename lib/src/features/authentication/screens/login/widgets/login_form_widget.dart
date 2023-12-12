@@ -38,12 +38,10 @@ class LoginForm extends StatelessWidget {
                       r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
                   final regex = RegExp(pattern);
                   if (value!.isEmpty) {
-                    Get.snackbar("Error", "Enter Email",
-                        snackPosition: SnackPosition.BOTTOM);
+                    return("Enter Email");
                   } else {
                     if (!regex.hasMatch(value)) {
-                      Get.snackbar("Error", "Enter a valid Email",
-                          snackPosition: SnackPosition.BOTTOM);
+                     return("Enter a valid Email" );
                     } else {
                       return null;
                     }
@@ -70,8 +68,7 @@ class LoginForm extends StatelessWidget {
                   validator: (value){
                     if (value!.isEmpty)
                       {
-                        Get.snackbar("Error", "Enter Password",
-                            snackPosition: SnackPosition.BOTTOM);
+                        return( "Enter Password");
                       }
 
                   },
@@ -81,11 +78,11 @@ class LoginForm extends StatelessWidget {
                     labelText: gPassword,
                     hintText: gPassword,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87, width: 2.0), // Increase the width for a bold border
+                      borderSide: const BorderSide(color: Colors.black87, width: 2.0), // Increase the width for a bold border
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black87, width: 1.0),
+                      borderSide: const BorderSide(color: Colors.black87, width: 1.0),
                       borderRadius: BorderRadius.circular(100.0), // Adjust border radius if needed
                     ),
                     suffixIcon: IconButton(
@@ -110,16 +107,18 @@ class LoginForm extends StatelessWidget {
                     },
                     child: const Text(gForgotPassword)),
               ),
-              SizedBox(
-                  width: double.infinity,
-                  child: GPrimaryButton(
-                      text: gLogin,
-                      image: gGoogleLogoImage,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.login();
-                        }
-                      }))
+             Obx(() => GPrimaryButton(
+                 isLoading: controller.isLoading.value? true:false,
+                 text: gLogin,
+                 image: gGoogleLogoImage,
+                 onPressed: controller.isLoading.value?
+                 (){}:(){
+                   if(_formKey.currentState!.validate()){
+                     controller.isLoading.value=false;
+                     controller.login();
+                   }
+                 }
+             ))
             ],
           ),
         ));

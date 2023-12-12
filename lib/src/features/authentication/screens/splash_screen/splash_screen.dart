@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fyp/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
+import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -13,9 +14,8 @@ class _SplashScreenState extends State<SplashScreen> {
   final String videoPath = 'assets/videos/splash_videos/logo.mp4'; // Update this path
 
   void navigateToNextScreen(BuildContext context) {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => OnBoardingScreen(), // Replace with your next screen
-    ));
+    AuthenticationRepository.instance.screenRedirect(); // Replace with your next screen
+
   }
 
 
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ],
         )
-            : SpinKitCircle(
+            : const SpinKitCircle(
           color: Colors.white,
           size: 50.0,
         ),

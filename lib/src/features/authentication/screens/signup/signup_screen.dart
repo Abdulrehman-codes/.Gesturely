@@ -58,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
                             : () => controller.googleSignIn(),
                       )),
                       TextButton(onPressed: (){
-                        Get.offAll(()=>const LoginScreen());
+                        Get.to(()=>const LoginScreen());
                       },
                           child: Text.rich(TextSpan(
                             children: [
