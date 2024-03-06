@@ -624,6 +624,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  onnx:
+    dependency: "direct main"
+    description:
+      name: onnx
+      sha256: "87bbc7606911d182a9832441bd474a4bf6628aeb4a3678533ebce1b1b8af0b7d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   package_config:
     dependency: transitive
     description:
@@ -688,6 +696,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  perfect_volume_control:
+    dependency: "direct main"
+    description:
+      name: perfect_volume_control
+      sha256: "9bc513e4a2b6151f7d04fc917271c40bdd44cbe67224d52a314302879d2a30f8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   permission_handler:
     dependency: "direct main"
     description:
@@ -933,6 +949,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  volume_controller:
+    dependency: "direct main"
+    description:
+      name: volume_controller
+      sha256: "189bdc7a554f476b412e4c8b2f474562b09d74bc458c23667356bce3ca1d48c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   watcher:
     dependency: transitive
     description:

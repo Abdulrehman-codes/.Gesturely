@@ -7,6 +7,7 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:onnx/onnx.dart';
 
 
 class ScanController extends GetxController {
@@ -58,7 +59,7 @@ class ScanController extends GetxController {
 
   initTFLite() async {
     await Tflite.loadModel(
-      model: "assets/model.tflite",
+      model: "assets/model1.tflite",
       labels: "assets/labels.txt",
       isAsset: true,
       numThreads: 1,
