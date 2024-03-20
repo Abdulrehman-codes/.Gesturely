@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+
 }
 
 def localProperties = new Properties()
@@ -22,6 +23,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+
 android {
     namespace "com.example.fyp"
     compileSdkVersion 33
@@ -32,10 +34,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    aaptOptions{
-        noCompress 'tflite'
-        noCompress 'lite'
+    repositories {
+        google()
+        mavenCentral()
     }
+
+
 
     kotlinOptions {
         jvmTarget = '1.8'
@@ -63,6 +67,10 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
     }
 }
 
