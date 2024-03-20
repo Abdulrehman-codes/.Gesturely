@@ -62,17 +62,14 @@ class CameraScreenState extends State<CameraScreen> {
     super.dispose();
   }
 
-
-
-
   loadModel() async {
     try {
       await vision.loadYoloModel(
         labels: 'assets/labels.txt',
-        modelPath: 'assets/model.tflite',
+        modelPath: 'assets/model5.tflite',
         modelVersion: "yolov8",
-        quantization: true,
-        numThreads: 3,
+        quantization: false,
+        numThreads: 1,
         useGpu: false,
       );
     } catch (e) {
@@ -82,7 +79,7 @@ class CameraScreenState extends State<CameraScreen> {
 
   initializeCamera() {
     cameraController = CameraController(
-      cameras![1], // Assuming you want to use the first camera
+      cameras![1],
       ResolutionPreset.ultraHigh,
     );
 
@@ -118,33 +115,20 @@ class CameraScreenState extends State<CameraScreen> {
       stopCamera();
     } else {
       initializeCamera();
-      // cameraController = CameraController(
-      //   cameras![1], // Assuming you want to use the first camera
-      //   ResolutionPreset.medium,
-      // );
-      // setState(() {
-      //   isCameraRunning = true;
-      //   cameraController.startImageStream((imageFromStream) {
-      //     setState(() {
-      //       imgCamera = imageFromStream;
-      //     });
-      //   });
-      // });
     }
   }
-
-
   runModelOnStreamFrame() async {
     if (imgCamera != null) {
       try {
         final recognitions = await vision.yoloOnFrame(
           bytesList: imgCamera!.planes.map((plane) => plane.bytes).toList(),
-          imageHeight: imgCamera!.height,
           imageWidth: imgCamera!.width,
+          imageHeight: imgCamera!.height,
           iouThreshold: 0.4,
+          classThreshold: 0.4,
           confThreshold: 0.4,
-          classThreshold: 0.5,
         );
+
 
         print(recognitions);
         if (recognitions.isNotEmpty) {
@@ -281,54 +265,73 @@ class CameraScreenState extends State<CameraScreen> {
 
 
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                _startBubble(
-                  context,
-                  bubbleOptions: BubbleOptions(
-                    // notificationIcon: 'github_bubble',
-                    bubbleIcon: 'github_bubble',
-                    // closeIcon: 'github_bubble',
-                    startLocationX: 0,
-                    startLocationY: 100,
-                    bubbleSize: 60,
-                    opacity: 1,
-                    enableClose: true,
-                    closeBehavior: CloseBehavior.fixed,
-                    distanceToClose: 100,
-                    enableAnimateToEdge: true,
-                    enableBottomShadow: false,
-                    keepAliveWhenAppExit: false,
-                  ),
-                  notificationOptions: NotificationOptions(
-                    id: 1,
-                    title: 'Dash Bubble Playground',
-                    body: 'Dash Bubble service is running',
-                    channelId: 'dash_bubble_notification',
-                    channelName: 'Dash Bubble Notification',
-                  ),
-                  onTap: () => toggleCameraAndModel(),
-                );
-              },
-              child: Text('Bubble'),
+            // Camera preview widget
+            Positioned.fill(
+              child: OverflowBox(
+                alignment: Alignment.center,
+                child: AspectRatio(
+                  aspectRatio: cameraController.value.aspectRatio,
+                  child: CameraPreview(cameraController),
+                ),
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                toggleCameraAndModel(); // Start or stop camera and model
-              },
-              child: Text(isCameraRunning ? 'Stop Camera & Model' : 'Start Camera & Model'),
+            // Buttons and other UI elements can be placed here
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _startBubble(
+                        context,
+                        bubbleOptions: BubbleOptions(
+                          bubbleIcon: 'github_bubble',
+                          startLocationX: 0,
+                          startLocationY: 100,
+                          bubbleSize: 60,
+                          opacity: 1,
+                          enableClose: true,
+                          closeBehavior: CloseBehavior.fixed,
+                          distanceToClose: 100,
+                          enableAnimateToEdge: true,
+                          enableBottomShadow: false,
+                          keepAliveWhenAppExit: false,
+                        ),
+                        notificationOptions: NotificationOptions(
+                          id: 1,
+                          title: 'Dash Bubble Playground',
+                          body: 'Dash Bubble service is running',
+                          channelId: 'dash_bubble_notification',
+                          channelName: 'Dash Bubble Notification',
+                        ),
+                        onTap: () => toggleCameraAndModel(),
+                      );
+                    },
+                    child: Text('Bubble'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      toggleCameraAndModel(); // Start or stop camera and model
+                    },
+                    child: Text(isCameraRunning ? 'Stop Camera & Model' : 'Start Camera & Model'),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 }

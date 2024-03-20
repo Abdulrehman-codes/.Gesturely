@@ -16,3 +16,4 @@ three
 three2
 two_up
 two_up_inverted
+no_gesture
