@@ -1,5 +1,6 @@
 import 'dart:ui'; // Import this for the ImageFilter class
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/features/authentication/screens/library/library.dart';
 import 'package:fyp/src/features/authentication/screens/profile/profile_screen.dart';
@@ -16,8 +17,14 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  var channel =const MethodChannel("gesturely");
   late Size mediaSize;
   File? _image; // Add this line to hold the selected image
+
+  showToast(){
+    channel.invokeMethod("showToast");
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +197,8 @@ class _DashBoardState extends State<DashBoard> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => Get.to(() => const Library()),
+              onPressed: ()=>showToast(),
+              // onPressed: () => Get.to(() => const Library()),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 shape: RoundedRectangleBorder(

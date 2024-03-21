@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/src/features/authentication/screens/dashboard/dashboard_screen.dart';
@@ -15,22 +16,17 @@ class NavBar extends StatefulWidget {
 class NavBarState extends State<NavBar> {
   List<Widget> pages = [
     const DashBoard(),
-    CameraScreen(),
+    const CameraApp(),
     const UserManagement(),
-    // Add the CameraScreen() here if you want it in the pages list
   ];
 
   int currentIndexNavBar = 0;
 
   void onTapNavBar(int index) {
     if (index >= 0 && index < pages.length) {
-      if (index == 1) { // Assuming the camera button is the third item
-        Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
-      } else {
-        setState(() {
-          currentIndexNavBar = index;
-        });
-      }
+      setState(() {
+        currentIndexNavBar = index;
+      });
     }
   }
 
@@ -55,18 +51,14 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black, // Set background color for the circular button
+                  color: Colors.black,
                   child: const Icon(
                     Icons.home,
-                    color: Colors.white, // Set icon color
+                    color: Colors.white,
                   ),
                 ),
               ),
-              onPressed: () {
-                setState(() {
-                  currentIndexNavBar = 0; // Set the index to the 3rd page (UserManagement)
-                });
-              },
+              onPressed: () => onTapNavBar(0),
             ),
           ),
           BottomNavigationBarItem(
@@ -76,18 +68,14 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black, // Set background color for the circular button
+                  color: Colors.black,
                   child: const Icon(
                     Icons.camera_enhance_sharp,
-                    color: Colors.white, // Set icon color
+                    color: Colors.white,
                   ),
                 ),
               ),
-              onPressed: () {
-                setState(() {
-                  currentIndexNavBar = 1; // Set the index to the 3rd page (UserManagement)
-                });
-              },
+              onPressed: () => onTapNavBar(1),
             ),
           ),
           BottomNavigationBarItem(
@@ -97,18 +85,14 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black, // Set background color for the circular button
+                  color: Colors.black,
                   child: const Icon(
                     Icons.share,
-                    color: Colors.white, // Set icon color
+                    color: Colors.white,
                   ),
                 ),
               ),
-              onPressed: (){
-                setState(() {
-                  currentIndexNavBar = 2; // Set the index to the 3rd page (UserManagement)
-                });
-              },
+              onPressed: () => onTapNavBar(2),
             ),
           ),
         ],
@@ -116,3 +100,4 @@ class NavBarState extends State<NavBar> {
     );
   }
 }
+

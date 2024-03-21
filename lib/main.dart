@@ -1,13 +1,19 @@
+import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fyp/firebase_options.dart';
+import 'package:fyp/src/features/authentication/screens/camera/camera_screen.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:fyp/src/utils/theme/theme.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  cameraScreenState = CameraScreenState();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) => Get.put(AuthenticationRepository()));
 

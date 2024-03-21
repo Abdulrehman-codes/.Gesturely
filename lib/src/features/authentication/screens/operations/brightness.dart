@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:screen_brightness_util/screen_brightness_util.dart';
 
-void main() {
-  runApp(MyApps());
-}
-
-class MyApps extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BrightnessScreen(),
-    );
-  }
-}
-
 class BrightnessScreen extends StatefulWidget {
   @override
   _BrightnessScreenState createState() => _BrightnessScreenState();
@@ -55,13 +42,13 @@ class _BrightnessScreenState extends State<BrightnessScreen> {
               children: <Widget>[
                 ElevatedButton(
                   onPressed: () {
-                    _increaseBrightness();
+                    increaseBrightness(); // Call the public method to increase brightness
                   },
                   child: Text('Increase Brightness'),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _decreaseBrightness();
+                    decreaseBrightness();
                   },
                   child: Text('Decrease Brightness'),
                 ),
@@ -73,7 +60,7 @@ class _BrightnessScreenState extends State<BrightnessScreen> {
     );
   }
 
-  void _increaseBrightness() async {
+  Future<void> increaseBrightness() async {
     double brightness = currentBrightness + 0.1;
     if (brightness <= 1.0) {
       await _screenBrightnessUtil.setBrightness(brightness);
@@ -83,7 +70,7 @@ class _BrightnessScreenState extends State<BrightnessScreen> {
     }
   }
 
-  void _decreaseBrightness() async {
+  Future<void> decreaseBrightness() async {
     double brightness = currentBrightness - 0.1;
     if (brightness >= 0.0) {
       await _screenBrightnessUtil.setBrightness(brightness);

@@ -3,8 +3,11 @@ import 'package:android_intent/android_intent.dart';
 import 'package:dash_bubble/dash_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:flutter_vision/flutter_vision.dart';
+import 'package:fyp/src/features/authentication/screens/operations/screen_scroll.dart';
+import 'package:fyp/src/features/authentication/screens/operations/brightness.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -13,18 +16,19 @@ List<CameraDescription>? cameras;
 // Declare a global variable to hold the instance of CameraScreenState
 CameraScreenState? cameraScreenState;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  cameras = await availableCameras();
-  cameraScreenState = CameraScreenState(); // Initialize the CameraScreenState instance
-  runApp(const CameraApp());
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   cameras = await availableCameras();
+//   cameraScreenState = CameraScreenState(); // Initialize the CameraScreenState instance
+//   runApp(const CameraApp());
+// }
 
 class CameraApp extends StatelessWidget {
   const CameraApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return const MaterialApp(
       title: 'Camera App',
       home: CameraScreen(),
@@ -35,29 +39,54 @@ class CameraApp extends StatelessWidget {
 class CameraScreen extends StatefulWidget {
   const CameraScreen({Key? key}) : super(key: key);
 
+
   @override
   CameraScreenState createState() => CameraScreenState();
 }
 
 class CameraScreenState extends State<CameraScreen> {
-  late CameraController cameraController;
+  var channel =const MethodChannel("gesturely");
+
+  CameraController? cameraController;
   CameraImage? imgCamera;
   String result = '';
-  bool isCameraRunning = true;
+  bool isCameraRunning = false;
   VolumeController volume = VolumeController();
+  BrightnessScreen brightness = BrightnessScreen();
+  ScrollController scroll = ScrollController();
   FlutterVision vision = FlutterVision();
   bool isRunning=true;
+
+  showToast(){
+    channel.invokeMethod("showToast");
+  }
+
+  scrollScreen()  {
+
+      channel.invokeMethod("scrollScreen"); // Provide the offset value here
+  }
+
+  increaseBrightness(){
+    channel.invokeMethod("increaseBrightness", {"level": 50});
+
+  }
+  decreaseBrightness(){
+    channel.invokeMethod("decreaseBrightness", {"level": 50});
+  }
+  whatsappmsg(){
+    channel.invokeMethod("openWhatsAppAndSendMessage",{"phNo":"03044555450","msg":"03044555450"});
+  }
+
   @override
   void initState() {
     super.initState();
-    initializeCamera();
     loadModel();
     _minimizeApp();
   }
 
   @override
   void dispose() {
-    cameraController.dispose();
+    cameraController?.dispose();
     vision.closeYoloModel();
     super.dispose();
   }
@@ -83,13 +112,13 @@ class CameraScreenState extends State<CameraScreen> {
       ResolutionPreset.ultraHigh,
     );
 
-    cameraController.initialize().then((_) {
+    cameraController?.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() {
         isCameraRunning = true;
-        cameraController.startImageStream((imageFromStream) {
+        cameraController?.startImageStream((imageFromStream) {
           setState(() {
             imgCamera = imageFromStream;
           });
@@ -101,8 +130,8 @@ class CameraScreenState extends State<CameraScreen> {
 
   stopCamera() {
     if (isCameraRunning) {
-      cameraController.stopImageStream();
-      cameraController.dispose();
+      cameraController?.stopImageStream();
+      cameraController?.dispose();
       setState(() {
         isCameraRunning = false;
       });
@@ -139,9 +168,11 @@ class CameraScreenState extends State<CameraScreen> {
               case "four":
               case "like":
               case "mute":
+                ScreenScroll.scrollUp();
               case "ok":
               case "one":
-              case "palm":
+                ScreenScroll.scrollDown();
+              case "fist":
               case "peace":
               case "peace_inverted":
               case "rock":
@@ -152,7 +183,7 @@ class CameraScreenState extends State<CameraScreen> {
               case "two_up_inverted":
                 VolumeController.decreaseVolume();
                 break;
-              case "fist":
+              case "palm":
                 print("Increase Volume");
                 VolumeController.increaseVolume();
                 break;
@@ -272,17 +303,77 @@ class CameraScreenState extends State<CameraScreen> {
         alignment: Alignment.center,
         child: Stack(
           children: [
-            // Camera preview widget
-            Positioned.fill(
-              child: OverflowBox(
-                alignment: Alignment.center,
-                child: AspectRatio(
-                  aspectRatio: cameraController.value.aspectRatio,
-                  child: CameraPreview(cameraController),
-                ),
+            Positioned(
+              top: 50, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  toggleCameraAndModel();
+                 // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text(isCameraRunning ? 'Stop Camera & Model' : 'Start Camera & Model'),
               ),
             ),
-            // Buttons and other UI elements can be placed here
+            Positioned(
+              top: 100, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  increaseBrightness();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('increase brightness'),
+              ),
+            ),Positioned(
+              top: 150, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  decreaseBrightness();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('decrease brightness'),
+              ),
+            ),
+            Positioned(
+              top: 200, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  VolumeController.increaseVolume();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Volume increase'),
+              ),
+            ),
+            Positioned(
+              top: 250, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  VolumeController.decreaseVolume();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Volume Decrese'),
+              ),
+            ),
+            Positioned(
+              top: 300, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  whatsappmsg();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Whatsapp Msg'),
+              ),
+            ),
             Positioned(
               bottom: 20,
               left: 20,
@@ -291,7 +382,8 @@ class CameraScreenState extends State<CameraScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()
+                    {
                       _startBubble(
                         context,
                         bubbleOptions: BubbleOptions(
@@ -314,16 +406,10 @@ class CameraScreenState extends State<CameraScreen> {
                           channelId: 'dash_bubble_notification',
                           channelName: 'Dash Bubble Notification',
                         ),
-                        onTap: () => toggleCameraAndModel(),
+                        onTap: () => decreaseBrightness(),
                       );
                     },
-                    child: Text('Bubble'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      toggleCameraAndModel(); // Start or stop camera and model
-                    },
-                    child: Text(isCameraRunning ? 'Stop Camera & Model' : 'Start Camera & Model'),
+                    child: const Text('Bubble'),
                   ),
                 ],
               ),
@@ -333,5 +419,6 @@ class CameraScreenState extends State<CameraScreen> {
       ),
     );
   }
+
 
 }
