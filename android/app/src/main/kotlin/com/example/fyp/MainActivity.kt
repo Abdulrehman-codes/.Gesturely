@@ -1,14 +1,23 @@
 package com.example.fyp
 
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraManager
+import android.Manifest
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
+import android.os.SystemClock
 import android.provider.Settings
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -56,6 +65,23 @@ class MainActivity : FlutterActivity() {
                     } else {
                         result.error("INVALID_ARGUMENTS", "Phone number or message is null", null)
                     }
+                }
+                "callOne" -> {
+                    val phoneNumber:String? = call.argument<String>("phNo")
+                    if(phoneNumber!= null && phoneNumber.length>10)
+                    {
+                        dialNumber(phoneNumber)
+                        showToast("calling ${phoneNumber}")
+                        result.success(null)
+                    }
+                    else{
+                        showToast("Phone No. is Not Valid")
+                    }
+
+                }
+                "swipeLTR"->{
+                    swipeLeftToRight()
+                    showToast("SwipeLTR")
                 }
             }
         }
@@ -146,6 +172,39 @@ class MainActivity : FlutterActivity() {
             false // App is not installed
         }
     }
+
+   private fun dialNumber(phoneNumber: String) {
+    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phoneNumber"))
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    context.startActivity(intent)
+
+    }
+    fun swipeLeftToRight() {
+        val screenWidth = Resources.getSystem().displayMetrics.widthPixels
+        val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+
+        val startPointX = 100 // Starting point X coordinate (left side)
+        val startPointY = screenHeight / 2 // Y coordinate (middle of the screen)
+        val endPointX = screenWidth - 100 // Ending point X coordinate (right side)
+        val endPointY = screenHeight / 2 // Y coordinate (middle of the screen)
+
+        val downTime = SystemClock.uptimeMillis()
+        val eventTime = SystemClock.uptimeMillis() + 100
+
+        val downEvent = MotionEvent.obtain(downTime, eventTime, MotionEvent.ACTION_DOWN, startPointX.toFloat(), startPointY.toFloat(), 0)
+        val moveEvent = MotionEvent.obtain(downTime, eventTime + 100, MotionEvent.ACTION_MOVE, endPointX.toFloat(), endPointY.toFloat(), 0)
+        val upEvent = MotionEvent.obtain(downTime, eventTime + 200, MotionEvent.ACTION_UP, endPointX.toFloat(), endPointY.toFloat(), 0)
+
+        val rootView = activity.window.decorView
+        rootView.dispatchTouchEvent(downEvent)
+        rootView.dispatchTouchEvent(moveEvent)
+        rootView.dispatchTouchEvent(upEvent)
+
+        downEvent.recycle()
+        moveEvent.recycle()
+        upEvent.recycle()
+    }
+
 }
 open class FlutterActivity {
 

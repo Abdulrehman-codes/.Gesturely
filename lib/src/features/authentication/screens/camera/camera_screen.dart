@@ -6,6 +6,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:flutter_vision/flutter_vision.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fyp/src/features/authentication/screens/operations/screen_scroll.dart';
 import 'package:fyp/src/features/authentication/screens/operations/brightness.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
@@ -57,8 +58,8 @@ class CameraScreenState extends State<CameraScreen> {
   FlutterVision vision = FlutterVision();
   bool isRunning=true;
 
-  showToast(){
-    channel.invokeMethod("showToast");
+  showToast(String message){
+    channel.invokeMethod("showToast",{"message": message});
   }
 
   scrollScreen()  {
@@ -74,7 +75,24 @@ class CameraScreenState extends State<CameraScreen> {
     channel.invokeMethod("decreaseBrightness", {"level": 50});
   }
   whatsappmsg(){
-    channel.invokeMethod("openWhatsAppAndSendMessage",{"phNo":"03044555450","msg":"03044555450"});
+    String phoneNumber="03044555450";
+    String message="Hello from the other side";
+
+    channel.invokeMethod('openWhatsAppAndSendMessage', {
+      'phNo': phoneNumber,
+      'msg': message,
+    });
+  }
+
+  callOne(){
+      String phoneNumber = "03044555450";
+      channel.invokeMethod("callOne", {"phNo": phoneNumber});
+    // else{
+    //   showToast("Permission Not Granted");
+    // }
+  }
+  swipeLTR(){
+    channel.invokeMethod("swipeLTR");
   }
 
   @override
@@ -168,10 +186,12 @@ class CameraScreenState extends State<CameraScreen> {
               case "four":
               case "like":
               case "mute":
-                ScreenScroll.scrollUp();
+                showToast(detection["tag"]);
+                increaseBrightness();
               case "ok":
               case "one":
-                ScreenScroll.scrollDown();
+                showToast(detection["tag"]);
+                decreaseBrightness();
               case "fist":
               case "peace":
               case "peace_inverted":
@@ -181,9 +201,11 @@ class CameraScreenState extends State<CameraScreen> {
               case "three2":
               case "two_up":
               case "two_up_inverted":
-                VolumeController.decreaseVolume();
+              showToast(detection["tag"]);
+              VolumeController.decreaseVolume();
                 break;
               case "palm":
+                showToast(detection["tag"]);
                 print("Increase Volume");
                 VolumeController.increaseVolume();
                 break;
@@ -375,6 +397,18 @@ class CameraScreenState extends State<CameraScreen> {
               ),
             ),
             Positioned(
+              top: 350, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  callOne();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Call'),
+              ),
+            ),
+            Positioned(
               bottom: 20,
               left: 20,
               right: 20,
@@ -406,7 +440,7 @@ class CameraScreenState extends State<CameraScreen> {
                           channelId: 'dash_bubble_notification',
                           channelName: 'Dash Bubble Notification',
                         ),
-                        onTap: () => decreaseBrightness(),
+                        onTap: () => swipeLTR(),
                       );
                     },
                     child: const Text('Bubble'),
