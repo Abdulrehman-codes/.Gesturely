@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}
+
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
 
@@ -10,6 +16,18 @@ class Library extends StatefulWidget {
 class _LibraryState extends State<Library>
     with AutomaticKeepAliveClientMixin<Library> {
   List<Widget> cards = [];
+  List<String> gestureNames = [
+    'call',
+    'dislike',
+    'fist',
+    'four',
+    'like',
+    'mute',
+    'ok',
+    'one',
+    'palm',
+    'peace'
+  ];
 
   @override
   bool get wantKeepAlive => true;
@@ -21,7 +39,7 @@ class _LibraryState extends State<Library>
   }
 
   void generateCards() {
-    for (int i = 1; i <= 10; i++) {
+    for (int i = 0; i < gestureNames.length; i++) {
       cards.add(
         GestureDetector(
           onTap: () {
@@ -41,19 +59,13 @@ class _LibraryState extends State<Library>
               title: Row(
                 children: [
                   Text(
-                    "Gesture Name $i",
+                    "     ${gestureNames[i]}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(width: 8),
                 ],
-              ),
-              subtitle: Text(
-                "Gesture Data $i",
-                style: TextStyle(height: 1.5),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
@@ -63,6 +75,8 @@ class _LibraryState extends State<Library>
   }
 
   void _showCardDetailsBottomSheet(int index) {
+    String gestureName = gestureNames[index];
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -75,7 +89,7 @@ class _LibraryState extends State<Library>
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'Card $index Details',
+                  '${gestureName.capitalize()} Details',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -83,14 +97,14 @@ class _LibraryState extends State<Library>
                 ),
                 SizedBox(height: 16),
                 Text(
-                  'Gesture Name $index',
+                  '${gestureName.capitalize()}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Gesture Data $index',
+                  'Gesture Data ${gestureName.capitalize()}',
                   style: TextStyle(height: 1.5),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,

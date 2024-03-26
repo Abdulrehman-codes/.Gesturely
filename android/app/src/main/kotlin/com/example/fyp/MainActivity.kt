@@ -57,10 +57,11 @@ class MainActivity : FlutterActivity() {
                     result.success(null)
                 }
                 "openWhatsAppAndSendMessage" -> {
-                    val phoneNumber = call.argument<String>("phNo")
-                    val message = call.argument<String>("msg")
+                    val phoneNumber:String? = call.argument<String>("phNo")
+                    val message:String? = call.argument<String>("msg")
 
                     if (phoneNumber != null && message != null) {
+                        showToast("Whatapp")
                         openWhatsAppAndSendMessage(phoneNumber, message, result)
                     } else {
                         result.error("INVALID_ARGUMENTS", "Phone number or message is null", null)
@@ -139,36 +140,33 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    fun openWhatsAppAndSendMessage(
+    private fun openWhatsAppAndSendMessage(
         phoneNumber: String,
         message: String,
         result: Result
     ) {
-        val whatsappPackage = "com.whatsapp"
 
-        // Check if WhatsApp is installed on the device
-        if (isAppInstalled(whatsappPackage)) {
-            // Create a URI with the phone number
+
+        showToast("Outside Whatsapp")
+            showToast("Whatsapp is here")
             val uri = Uri.parse("https://wa.me/$phoneNumber/?text=${Uri.encode(message)}")
-
-            // Create an intent to open WhatsApp with the URI
             val intent = Intent(Intent.ACTION_VIEW, uri)
-            intent.`package` = whatsappPackage
+            intent.`package` = "com.whatsapp"
 
             // Start the activity
             context.startActivity(intent)
             result.success(true) // Indicate success
-        } else {
-            result.success(false) // Indicate failure (WhatsApp not installed)
-        }
+
     }
 
     fun isAppInstalled(packageName: String): Boolean {
         val packageManager = context.packageManager
         return try {
             packageManager?.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            showToast("Jabba")
             true // App is installed
         } catch (e: PackageManager.NameNotFoundException) {
+            showToast("Not Jabba")
             false // App is not installed
         }
     }

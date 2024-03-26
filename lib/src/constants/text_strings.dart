@@ -1,4 +1,5 @@
-
+String secret="PRNd4znLgviQW9PXuaNpxbwj-FrU-I3g";
+String projectId="gesturely-cqs99gg";
 
 const String gLogin="Login";
 const String gSignup="SignUp";
@@ -57,7 +58,7 @@ const String gProfileHeading="Gesturely";
 const String gProfileSubHeading="Jabba Jabba";
 
 const String gMenu3="User Management";
-const String gMenu2="Billing Details";
+const String gMenu2="FeedBack";
 const String gMenu1="Settings";
 const String gMenu4="Information";
 

@@ -6,23 +6,14 @@ import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:flutter_vision/flutter_vision.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fyp/src/features/authentication/screens/operations/screen_scroll.dart';
 import 'package:fyp/src/features/authentication/screens/operations/brightness.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 List<CameraDescription>? cameras;
 
-// Declare a global variable to hold the instance of CameraScreenState
 CameraScreenState? cameraScreenState;
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   cameras = await availableCameras();
-//   cameraScreenState = CameraScreenState(); // Initialize the CameraScreenState instance
-//   runApp(const CameraApp());
-// }
+
 
 class CameraApp extends StatelessWidget {
   const CameraApp({Key? key}) : super(key: key);
@@ -57,6 +48,7 @@ class CameraScreenState extends State<CameraScreen> {
   ScrollController scroll = ScrollController();
   FlutterVision vision = FlutterVision();
   bool isRunning=true;
+
 
   showToast(String message){
     channel.invokeMethod("showToast",{"message": message});

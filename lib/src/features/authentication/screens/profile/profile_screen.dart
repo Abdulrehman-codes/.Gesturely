@@ -3,15 +3,35 @@ import 'package:fyp/src/constants/colors.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/constants/sizes.dart';
 import 'package:fyp/src/constants/text_strings.dart';
+import 'package:fyp/src/features/authentication/screens/profile/feedback.dart';
 import 'package:fyp/src/features/authentication/screens/profile/update_profle_screen.dart';
 import 'package:fyp/src/features/authentication/screens/profile/user_managment/user_management.dart';
 import 'package:fyp/src/features/authentication/screens/profile/widgets/profile_menu_widgets.dart';
 import 'package:fyp/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:wiredash/wiredash.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wiredash(
+      secret: secret,
+      projectId: projectId,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+class MyHomePage extends StatefulWidget {
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +45,7 @@ class ProfileScreen extends StatelessWidget {
           icon: Icon(LineAwesomeIcons.angle_left,color:isDark?Colors.white:Colors.black)),
         title: Text(gProfile, style: Theme.of(context).textTheme.headline4),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(isDark ? LineAwesomeIcons.sun : LineAwesomeIcons.moon),color:isDark?Colors.white:Colors.black)
-        ],
+
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -82,10 +98,11 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 10),
               const Divider(),
               const SizedBox(height: 10),
+
               ProfileMenuWidget(
-                  title: gMenu1, icon: LineAwesomeIcons.cog, onPress: () {}),
-              ProfileMenuWidget(
-                  title: gMenu2, icon: LineAwesomeIcons.wallet, onPress: () {}),
+                  title: gMenu2, icon: LineAwesomeIcons.comments, onPress: () {
+                Wiredash.of(context).show();
+              }),
               ProfileMenuWidget(
                   title: gMenu3,
                   icon: LineAwesomeIcons.user_check,
