@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
+import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
 
 extension StringExtension on String {
   String capitalize() {
@@ -29,6 +31,9 @@ class _LibraryState extends State<Library>
     'peace'
   ];
 
+  // Map to store user's gesture preferences
+  Map<String, FunctionType> gesturePreferences = {};
+
   @override
   bool get wantKeepAlive => true;
 
@@ -47,10 +52,10 @@ class _LibraryState extends State<Library>
           },
           child: Card(
             color: Colors.grey,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
-              contentPadding: EdgeInsets.all(16),
-              leading: ClipRRect(
+              contentPadding: const EdgeInsets.all(16),
+              leading: const ClipRRect(
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
                   child: Icon(Icons.front_hand),
@@ -60,11 +65,11 @@ class _LibraryState extends State<Library>
                 children: [
                   Text(
                     "     ${gestureNames[i]}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                 ],
               ),
             ),
@@ -84,126 +89,40 @@ class _LibraryState extends State<Library>
         return SingleChildScrollView(
           child: Container(
             width: width,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
                   '${gestureName.capitalize()} Details',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
-                  '${gestureName.capitalize()}',
-                  style: TextStyle(
+                  gestureName.capitalize(),
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   'Gesture Data ${gestureName.capitalize()}',
-                  style: TextStyle(height: 1.5),
+                  style: const TextStyle(height: 1.5),
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 20),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Volume Up button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Volume Up',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Volume Down button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Volume Down',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Brightness Up button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Brightness Up',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Brightness Down button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Brightness Down',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Scroll Up button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Scroll Up',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle Scroll Down button press
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.transparent, // Set button color to transparent
-                    ),
-                    child: Text(
-                      'Scroll Down',
-                      style: TextStyle(color: Colors.black), // Set text color to black
-                    ),
-                  ),
+                const SizedBox(height: 20),
+                _buildActionButtons(gestureName),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    // Show gesture preference screen
+                    _showGesturePreferenceScreen(gestureName);
+                  },
+                  child: const Text('Set Gesture Preference'),
                 ),
               ],
             ),
@@ -212,6 +131,57 @@ class _LibraryState extends State<Library>
       },
     );
   }
+
+  Widget _buildActionButtons(String gestureName) {
+    print('Gesture Name: $gestureName');
+    print('Gesture Preferences: $gesturePreferences');
+
+    FunctionType? actionPreference = gesturePreferences[gestureName];
+    print('Action Preference: $actionPreference');
+
+    return Column(
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: Text(
+            actionPreference != null
+                ? actionPreference.toString()
+                : 'No Action Assigned',
+            style: const TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        const SizedBox(height: 10),
+        // Add other action buttons here
+      ],
+    );
+  }
+
+
+
+  void _showGesturePreferenceScreen(String gestureName) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GesturePreferencesScreen(
+          gestureName: gestureName,
+          onPreferenceSaved: (selectedAction) {
+            if (selectedAction != null) {
+              gesturePreferences[gestureName] = selectedAction;
+              print(selectedAction);
+              setState(() {
+                gesturePreferences[gestureName] = selectedAction;
+              }); // Update the UI if necessary
+            }
+          },
+        ),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -235,6 +205,103 @@ class _LibraryState extends State<Library>
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class GesturePreferencesScreen extends StatefulWidget {
+  final String gestureName;
+  final Function(FunctionType?) onPreferenceSaved;
+
+  GesturePreferencesScreen({
+    required this.gestureName,
+    required this.onPreferenceSaved,
+  });
+
+  @override
+  _GesturePreferencesScreenState createState() => _GesturePreferencesScreenState();
+}
+
+class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
+  GestureAction? _selectedGesture;
+  FunctionType? _selectedAction;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGesture = _mapStringToGestureAction(widget.gestureName);
+  }
+
+  GestureAction _mapStringToGestureAction(String gestureName) {
+    switch (gestureName) {
+      case 'call':
+        return GestureAction.call;
+      case 'dislike':
+        return GestureAction.dislike;
+      case 'fist':
+        return GestureAction.fist;
+      case 'four':
+        return GestureAction.four;
+      case 'like':
+        return GestureAction.like;
+      case 'mute':
+        return GestureAction.mute;
+      case 'ok':
+        return GestureAction.ok;
+      case 'one':
+        return GestureAction.one;
+      case 'palm':
+        return GestureAction.palm;
+      case 'peace':
+        return GestureAction.peace;
+      default:
+        return GestureAction.no_gesture;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Gesture Preferences'),
+      ),
+      body: Column(
+        children: [
+          // Display available actions and allow user to select one
+          DropdownButton<FunctionType>(
+            value: _selectedAction,
+            hint: Text('Select an action'),
+            onChanged: (FunctionType? value) {
+              setState(() {
+                _selectedAction = value;
+              });
+            },
+            items: FunctionType.values.map((FunctionType action) {
+              return DropdownMenuItem<FunctionType>(
+                value: action,
+                child: Text(action.toString()),
+              );
+            }).toList(),
+          ),
+
+          // Save the user's preference
+          ElevatedButton(
+            onPressed: _selectedAction != null
+                ? () {
+              GesturePreferences.setPreference(
+                _selectedGesture!,
+                _selectedAction!,
+              );
+              widget.onPreferenceSaved(_selectedAction);
+              Navigator.pop(context);
+              showToast(_selectedAction.toString());
+
+            }
+                : null,
+            child: Text('Save Preference'),
+          ),
+        ],
       ),
     );
   }

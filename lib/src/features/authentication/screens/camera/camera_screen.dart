@@ -6,6 +6,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:flutter_vision/flutter_vision.dart';
+import 'package:fyp/src/features/authentication/screens/camera/gesture.dart';
+import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/operations/brightness.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
 
@@ -48,6 +50,7 @@ class CameraScreenState extends State<CameraScreen> {
   ScrollController scroll = ScrollController();
   FlutterVision vision = FlutterVision();
   bool isRunning=true;
+  Gestures gestures = Gestures(); // Create an instance of Gestures
 
 
   showToast(String message){
@@ -156,6 +159,49 @@ class CameraScreenState extends State<CameraScreen> {
       initializeCamera();
     }
   }
+
+  GestureAction? getGestureActionFromTag(String tag) {
+    switch (tag) {
+      case "call":
+        return GestureAction.call;
+      case "dislike":
+        return GestureAction.dislike;
+      case "like":
+        return GestureAction.like;
+      case "palm":
+        return GestureAction.palm;
+      case "four":
+        return GestureAction.four;
+      case "mute":
+        return GestureAction.mute;
+      case "ok":
+        return GestureAction.ok;
+      case "one":
+        return GestureAction.one;
+      case "fist":
+        return GestureAction.fist;
+      case "peace":
+        return GestureAction.peace;
+      case "peace_inverted":
+        return GestureAction.peace_inverted;
+      case "rock":
+        return GestureAction.rock;
+      case "stop":
+        return GestureAction.stop;
+      case "stop_inverted":
+        return GestureAction.stop_inverted;
+      case "three2":
+        return GestureAction.three2;
+      case "two_up":
+        return GestureAction.two_up;
+      case "two_up_inverted":
+        return GestureAction.two_up_inverted;
+      default:
+        return GestureAction.no_gesture;
+    }
+
+  }
+
   runModelOnStreamFrame() async {
     if (imgCamera != null) {
       try {
@@ -172,42 +218,14 @@ class CameraScreenState extends State<CameraScreen> {
         print(recognitions);
         if (recognitions.isNotEmpty) {
           for (var detection in recognitions) {
-            switch (detection["tag"]) {
-              case "call":
-              case "dislike":
-              case "four":
-              case "like":
-              case "mute":
-                showToast(detection["tag"]);
-                increaseBrightness();
-              case "ok":
-              case "one":
-                showToast(detection["tag"]);
-                decreaseBrightness();
-              case "fist":
-              case "peace":
-              case "peace_inverted":
-              case "rock":
-              case "stop":
-              case "stop_inverted":
-              case "three2":
-              case "two_up":
-              case "two_up_inverted":
-              showToast(detection["tag"]);
-              VolumeController.decreaseVolume();
-                break;
-              case "palm":
-                showToast(detection["tag"]);
-                print("Increase Volume");
-                VolumeController.increaseVolume();
-                break;
-              default:
-                debugPrint("Unknown tag: ${detection['tag']}");
-                break;
+            String gestureTag = detection["tag"];
+            GestureAction? action = getGestureActionFromTag(gestureTag);
+            if (action != null) {
+              gestures.perform(action);
             }
           }
         }
-      } catch (e) {
+      }catch (e) {
         debugPrint("Error running model: $e");
       }
     }

@@ -2,6 +2,7 @@ import 'dart:ui'; // Import this for the ImageFilter class
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp/src/constants/image_strings.dart';
+import 'package:fyp/src/features/authentication/screens/gesture/gesture_Selection.dart';
 import 'package:fyp/src/features/authentication/screens/library/library.dart';
 import 'package:fyp/src/features/authentication/screens/profile/profile_screen.dart';
 import 'package:get/get.dart';
@@ -223,7 +224,7 @@ class _DashBoardState extends State<DashBoard> {
             scrollDirection: Axis.horizontal,
             children: [
               ElevatedButton(
-                onPressed: () => Get.to(() => Library()),
+                onPressed: () => Get.to(() => const Library()),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 10), // reduced button width
                 ),
