@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
+import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
 
 enum GestureAction {
   call,
@@ -23,44 +24,34 @@ enum GestureAction {
 }
 
 enum FunctionType {
-  showToast,
-  scrollScreen,
+  volumeUp,
+  volumeDown,
   increaseBrightness,
   decreaseBrightness,
   whatsappmsg,
   callOne,
-  swipeLTR,
-  unknown,
+  goBack,
+  unknown
+
 }
 
-GestureAction? getGestureActionFromTag(String tag) {
-  switch (tag) {
-    case "call":
-      return GestureAction.call;
-    case "dislike":
-      return GestureAction.dislike;
-    case "four":
-      return GestureAction.four;
-  // ... add cases for other gesture tags
-    default:
-      return null;
-  }
-}
-
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 var channel = const MethodChannel("gesturely");
 showToast(String message) {
   channel.invokeMethod("showToast", {"message": message});
 }
 
 scrollScreen() {
-  channel.invokeMethod("scrollScreen"); // Provide the offset value here
+  channel.invokeMethod("scrollScreen");
 }
 
 increaseBrightness() {
+  showToast("Increasing Brightness by 10");
   channel.invokeMethod("increaseBrightness", {"level": 50});
 }
 
 decreaseBrightness() {
+  showToast("Decreasing Brightness by 10");
   channel.invokeMethod("decreaseBrightness", {"level": 50});
 }
 
@@ -77,12 +68,21 @@ whatsappmsg() {
 callOne() {
   String phoneNumber = "03044555450";
   channel.invokeMethod("callOne", {"phNo": phoneNumber});
-  // else{
-  //   showToast("Permission Not Granted");
-  // }
+
+}
+
+volumeUp(){
+  showToast("Increasing Volume by 10");
+  VolumeController.increaseVolume();
+}
+volumeDown(){
+  showToast("Decreasing Volume by 10");
+  VolumeController.decreaseVolume();
 }
 
 swipeLTR() {
   channel.invokeMethod("swipeLTR");
 }
-
+goBack() {
+  navigatorKey.currentState?.pop();
+}

@@ -17,6 +17,8 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library>
     with AutomaticKeepAliveClientMixin<Library> {
+
+  // Add the next gesture card to the list
   List<Widget> cards = [];
   List<String> gestureNames = [
     'call',
@@ -51,7 +53,7 @@ class _LibraryState extends State<Library>
             _showCardDetailsBottomSheet(i);
           },
           child: Card(
-            color: Colors.grey,
+            color: Colors.blueGrey,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               contentPadding: const EdgeInsets.all(16),
@@ -64,9 +66,10 @@ class _LibraryState extends State<Library>
               title: Row(
                 children: [
                   Text(
-                    "     ${gestureNames[i]}",
+                    "     ${gestureNames[i].toUpperCase()}",
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
+                      fontSize: 25
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -122,6 +125,17 @@ class _LibraryState extends State<Library>
                     // Show gesture preference screen
                     _showGesturePreferenceScreen(gestureName);
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue, // Background color
+                    onPrimary: Colors.white, // Text color
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Button padding
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // Button border radius
+                    ),
+                    textStyle: TextStyle(
+                      fontSize: 16, // Text font size
+                    ),
+                  ),
                   child: const Text('Set Gesture Preference'),
                 ),
               ],
@@ -133,8 +147,7 @@ class _LibraryState extends State<Library>
   }
 
   Widget _buildActionButtons(String gestureName) {
-    print('Gesture Name: $gestureName');
-    print('Gesture Preferences: $gesturePreferences');
+
 
     FunctionType? actionPreference = gesturePreferences[gestureName];
     print('Action Preference: $actionPreference');
@@ -295,10 +308,20 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
               );
               widget.onPreferenceSaved(_selectedAction);
               Navigator.pop(context);
-              showToast(_selectedAction.toString());
-
-            }
-                : null,
+              showToast("Command ${_selectedAction.toString()} set Successfully");
+              showToast("Command Saved Successfully");
+            } : null,
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue, // Background color
+              onPrimary: Colors.white, // Text color
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16), // Button padding
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8), // Button border radius
+              ),
+              textStyle: TextStyle(
+                fontSize: 16, // Text font size
+              ),
+            ),
             child: Text('Save Preference'),
           ),
         ],

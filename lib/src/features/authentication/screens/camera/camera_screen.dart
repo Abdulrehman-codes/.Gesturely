@@ -121,7 +121,7 @@ class CameraScreenState extends State<CameraScreen> {
 
   initializeCamera() {
     cameraController = CameraController(
-      cameras![1],
+      cameras![0],
       ResolutionPreset.ultraHigh,
     );
 
@@ -221,6 +221,7 @@ class CameraScreenState extends State<CameraScreen> {
             String gestureTag = detection["tag"];
             GestureAction? action = getGestureActionFromTag(gestureTag);
             if (action != null) {
+              showToast("Detected : $gestureTag");
               gestures.perform(action);
             }
           }
@@ -452,6 +453,7 @@ class CameraScreenState extends State<CameraScreen> {
                         ),
                         onTap: () => swipeLTR(),
                       );
+                      _minimizeApp();
                     },
                     child: const Text('Bubble'),
                   ),

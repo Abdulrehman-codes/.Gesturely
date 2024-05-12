@@ -89,7 +89,7 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun showToast(message: String?) {
-        Toast.makeText(this@MainActivity, message , Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, message , Toast.LENGTH_SHORT).show()
     }
 
     private fun scrollScreen(offset: Int): Boolean {

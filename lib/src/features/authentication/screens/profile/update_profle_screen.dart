@@ -157,7 +157,9 @@ class UpdateProfileScreen extends StatelessWidget {
                     ],
                   );
                 } else if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
+                  return Center(child: Text("Data has been protected by Google",style: TextStyle(
+                    fontSize: 20
+                  ),));
                 } else {
                   return const Center(child: Text('Something went wrong'));
                 }

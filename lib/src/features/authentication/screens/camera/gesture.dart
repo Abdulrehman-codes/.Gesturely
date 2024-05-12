@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
+import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
 
 class Gestures {
   var channel = const MethodChannel("gesturely");
 
-
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   showToast(String message) {
     channel.invokeMethod("showToast", {"message": message});
   }
@@ -41,17 +42,20 @@ class Gestures {
   swipeLTR() {
     channel.invokeMethod("swipeLTR");
   }
+  volumeUp(){
+    VolumeController.increaseVolume();
+  }
+  volumeDown(){
+    VolumeController.decreaseVolume();
+  }
+  goBack() {
+    navigatorKey.currentState?.pop();
+  }
 
   void perform(GestureAction action) {
     FunctionType preference = GesturePreferences.getPreference(action);
 
     switch (preference) {
-      case FunctionType.showToast:
-        showToast(action.toString());
-        break;
-      case FunctionType.scrollScreen:
-        scrollScreen();
-        break;
       case FunctionType.increaseBrightness:
         increaseBrightness();
         break;
@@ -64,11 +68,26 @@ class Gestures {
       case FunctionType.callOne:
         callOne();
         break;
-      case FunctionType.swipeLTR:
-        swipeLTR();
-        break;
+    // case FunctionType.showToast:
+    //   showToast(action.toString());
+    //   break;
+    // case FunctionType.scrollScreen:
+    //   scrollScreen();
+    //   break;
+      // case FunctionType.swipeLTR:
+      //   swipeLTR();
+      //   break;
       case FunctionType.unknown:
         debugPrint("Unknown action");
+        break;
+      case FunctionType.volumeUp:
+        volumeUp();
+        break;
+      case FunctionType.volumeDown:
+        volumeDown();
+        break;
+      case FunctionType.goBack:
+        goBack();
         break;
     }
   }

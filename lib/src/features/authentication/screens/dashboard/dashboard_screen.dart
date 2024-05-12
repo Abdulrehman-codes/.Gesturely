@@ -1,4 +1,5 @@
 import 'dart:ui'; // Import this for the ImageFilter class
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp/src/constants/image_strings.dart';
@@ -170,7 +171,7 @@ class _DashBoardState extends State<DashBoard> {
       backgroundColor: Colors.grey,
       backgroundImage: _image != null
           ? FileImage(_image!)
-          : AssetImage(gEmptyProfile) as ImageProvider<Object>?,
+          : AssetImage(gHand) as ImageProvider<Object>?,
     ),
   );
 
@@ -185,7 +186,12 @@ class _DashBoardState extends State<DashBoard> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return const Text('Hello From Gesturely',
+                style: TextStyle(
+                color: Colors.black,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),);
             } else if (snapshot.hasData) {
               final UserModel user = snapshot.data!;
               return Column(
@@ -200,7 +206,7 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    "Your Information Here",
+                    "Hello From Gesturely",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 10,
@@ -226,11 +232,11 @@ class _DashBoardState extends State<DashBoard> {
               ElevatedButton(
                 onPressed: () => Get.to(() => const Library()),
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 10), // reduced button width
+                  padding: const EdgeInsets.symmetric(horizontal: 20), // reduced button width
                 ),
                 child: SizedBox(
-                  width: 100,
-                  height: 100,
+                  width: 50,
+                  height: 50,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -238,31 +244,6 @@ class _DashBoardState extends State<DashBoard> {
                       const SizedBox(height: 8),
                       Text(
                         "Library".toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                //onPressed: () => Get.to(() => SetCommands()),
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20), // reduced button width
-                ),
-
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.library_books),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Cmd".toUpperCase(),
                         style: const TextStyle(
                           fontSize: 10,
                         ),
