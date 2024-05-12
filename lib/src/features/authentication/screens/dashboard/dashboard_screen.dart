@@ -12,6 +12,8 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../constants/text_strings.dart';
+import '../../../../repository/authentication_repository/authentication_repository.dart';
 import '../../models/user_model.dart';
 
 class DashBoard extends StatefulWidget {
@@ -76,6 +78,33 @@ class _DashBoardState extends State<DashBoard> {
                 IconButton(
                   icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title:  Text("Logout Confirmation",style: Theme.of(context).textTheme.bodyMedium),
+                          content:  Text("Are you sure you want to log out?",style: Theme.of(context).textTheme.bodyMedium),
+                          actions: <Widget>[
+                            // Cancel button
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text("Cancel",style: Theme.of(context).textTheme.bodyMedium),
+                            ),
+                            // Logout button
+                            TextButton(
+                              onPressed: () {
+                                // Perform the logout action
+                                AuthenticationRepository.instance.logout();
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child:  Text(gLogout,style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.red)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                     // Handle left button press
                   },
                 ),
@@ -176,6 +205,7 @@ class _DashBoardState extends State<DashBoard> {
   );
 
   Widget _buildForm() {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -202,17 +232,12 @@ class _DashBoardState extends State<DashBoard> {
                       color: Colors.black,
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Georgia', // Change 'YourFont' to the desired font family
+                      fontStyle: FontStyle.italic, // Change to FontStyle.normal if needed
+                      // You can also use other properties like letterSpacing, wordSpacing, etc.
                     ),
                   ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    "Hello From Gesturely",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+
                 ],
               );
             } else {
@@ -221,40 +246,43 @@ class _DashBoardState extends State<DashBoard> {
           },
         ),
         const SizedBox(height: 50),
-        Container(width: mediaSize.width, height: 3, color: Colors.black),
-        const SizedBox(height: 50),
+
+
         Container(
           height: 120, // increased container height
-          child: PageView(
-            controller: _pageController,
-            scrollDirection: Axis.horizontal,
-            children: [
-              ElevatedButton(
-                onPressed: () => Get.to(() => const Library()),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 20), // reduced button width
-                ),
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.library_books),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Library".toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          width: 250,
+          decoration: BoxDecoration(
+            color: Color(0xff9a83e5), // #874CCC
+            borderRadius: BorderRadius.circular(70), // Adjust the value as needed
+          ),
+          child: ElevatedButton(
+            onPressed: () => Get.to(() => const Library()),
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff9a83e5), // 0xff874CCC
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(70), // Adjust the value as needed
               ),
-            ],
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.library_books),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Library".toUpperCase(),
+                    style: const TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
+
+
         const SizedBox(height: 50),
       ],
     );

@@ -42,9 +42,9 @@ class ProfileMenuWidget extends StatelessWidget {
         height: 30,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Colors.grey.withOpacity(0.1),
+          color: Color(0xff9a83e5),
         ),
-        child: const Icon(LineAwesomeIcons.angle_right, color: Colors.grey),):null,
+        child: const Icon(LineAwesomeIcons.angle_right, color: Colors.black),):null,
 
     );
   }

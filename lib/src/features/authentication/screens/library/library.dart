@@ -53,7 +53,7 @@ class _LibraryState extends State<Library>
             _showCardDetailsBottomSheet(i);
           },
           child: Card(
-            color: Colors.blueGrey,
+            color: Color(0xff9a83e5),
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               contentPadding: const EdgeInsets.all(16),

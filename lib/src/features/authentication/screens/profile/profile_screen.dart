@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ElevatedButton(
                   onPressed: () => Get.to(() => const UpdateProfileScreen()),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: gPrimaryColor,
+                    backgroundColor: Color(0xff9a83e5),
                     side: BorderSide.none,
                     shape: const StadiumBorder(),
                   ),
@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   title: gMenu3,
                   icon: LineAwesomeIcons.user_check,
                   onPress: ()=>Get.to(()=>const UserManagement())),
-              const Divider(color: Colors.grey),
+              const Divider(color: Color(0xff9a83e5)),
               const SizedBox(height: 10),
               ProfileMenuWidget(
                   title: gMenu4, icon: LineAwesomeIcons.info, onPress: () {}),

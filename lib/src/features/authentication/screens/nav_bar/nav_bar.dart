@@ -43,6 +43,7 @@ class NavBarState extends State<NavBar> {
         selectedIconTheme: const IconThemeData(color: Colors.black),
         unselectedIconTheme: const IconThemeData(color: Colors.black),
         selectedItemColor: Colors.black,
+        backgroundColor: Color(0xff9a83e5), // 0xff912BBC
         items: [
           BottomNavigationBarItem(
             label: 'Home',
@@ -51,7 +52,7 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black,
+                  color: Color(0xff1C1678),
                   child: const Icon(
                     Icons.home,
                     color: Colors.white,
@@ -68,7 +69,7 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black,
+                  color: Color(0xff1C1678),
                   child: const Icon(
                     Icons.camera_enhance_sharp,
                     color: Colors.white,
@@ -85,7 +86,7 @@ class NavBarState extends State<NavBar> {
                 child: Container(
                   width: 40,
                   height: 40,
-                  color: Colors.black,
+                  color: Color(0xff1C1678),
                   child: const Icon(
                     Icons.share,
                     color: Colors.white,
@@ -100,4 +101,3 @@ class NavBarState extends State<NavBar> {
     );
   }
 }
-
