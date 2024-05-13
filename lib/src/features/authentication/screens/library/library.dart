@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
 
@@ -17,7 +20,6 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library>
     with AutomaticKeepAliveClientMixin<Library> {
-
   // Add the next gesture card to the list
   List<Widget> cards = [];
   List<String> gestureNames = [
@@ -53,7 +55,7 @@ class _LibraryState extends State<Library>
             _showCardDetailsBottomSheet(i);
           },
           child: Card(
-            color: Color(0xff9a83e5),
+            color: Color(0xff9a83e5).withOpacity(0.8),
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               contentPadding: const EdgeInsets.all(16),
@@ -67,11 +69,13 @@ class _LibraryState extends State<Library>
                 children: [
                   Text(
                     "     ${gestureNames[i].toUpperCase()}",
-                    style: const TextStyle(
+                    style: TextStyle(
+                      color: Colors.white, // Change the color of the text
                       fontWeight: FontWeight.bold,
-                      fontSize: 25
+                      fontSize: 18,
                     ),
                   ),
+
                   const SizedBox(width: 8),
                 ],
               ),
@@ -100,7 +104,7 @@ class _LibraryState extends State<Library>
                   '${gestureName.capitalize()} Details',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -128,9 +132,11 @@ class _LibraryState extends State<Library>
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue, // Background color
                     onPrimary: Colors.white, // Text color
-                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24), // Button padding
+                    padding: EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 24), // Button padding
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8), // Button border radius
+                      borderRadius: BorderRadius.circular(
+                          8), // Button border radius
                     ),
                     textStyle: TextStyle(
                       fontSize: 16, // Text font size
@@ -147,8 +153,6 @@ class _LibraryState extends State<Library>
   }
 
   Widget _buildActionButtons(String gestureName) {
-
-
     FunctionType? actionPreference = gesturePreferences[gestureName];
     print('Action Preference: $actionPreference');
 
@@ -173,8 +177,6 @@ class _LibraryState extends State<Library>
     );
   }
 
-
-
   void _showGesturePreferenceScreen(String gestureName) {
     Navigator.push(
       context,
@@ -195,29 +197,65 @@ class _LibraryState extends State<Library>
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true, // Extend the body behind the app bar
       appBar: AppBar(
-        title: Text('Library'),
+        backgroundColor: Colors.transparent, // Make the app bar transparent
+        elevation: 0, // Remove the app bar shadow
+        title: Text(
+          'Library',
+          style: TextStyle(
+            color: Colors.white, // Change the app bar title color
+          ),
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: cards.isNotEmpty
-              ? cards
-              : [
-            Container(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'No cards added yet.',
-                style: TextStyle(fontSize: 18),
+      body: Stack(
+        children: [
+          // Background image with blur effect and color layer
+          Positioned.fill(
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Color(0xff38027a).withOpacity(0.8), // Adjust the color and opacity
+                BlendMode.color, // Change the blend mode if needed
+              ),
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 15, sigmaY: 15), // Adjust blur intensity
+                child: Image.asset(
+                  gDashboard,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          Column(
+            children: [
+              SizedBox(height: kToolbarHeight + 16), // Add space for the app bar
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: cards.isNotEmpty
+                        ? cards
+                        : [
+                      Container(
+                        padding: EdgeInsets.all(16),
+                        child: Text(
+                          'No cards added yet.',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white, // Change the text color for better visibility
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -233,7 +271,8 @@ class GesturePreferencesScreen extends StatefulWidget {
   });
 
   @override
-  _GesturePreferencesScreenState createState() => _GesturePreferencesScreenState();
+  _GesturePreferencesScreenState createState() =>
+      _GesturePreferencesScreenState();
 }
 
 class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
@@ -308,15 +347,19 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
               );
               widget.onPreferenceSaved(_selectedAction);
               Navigator.pop(context);
-              showToast("Command ${_selectedAction.toString()} set Successfully");
+              showToast(
+                  "Command ${_selectedAction.toString()} set Successfully");
               showToast("Command Saved Successfully");
-            } : null,
+            }
+                : null,
             style: ElevatedButton.styleFrom(
               primary: Colors.blue, // Background color
               onPrimary: Colors.white, // Text color
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16), // Button padding
+              padding:
+              EdgeInsets.symmetric(vertical: 16, horizontal: 16), // Button padding
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // Button border radius
+                borderRadius: BorderRadius.circular(
+                    8), // Button border radius
               ),
               textStyle: TextStyle(
                 fontSize: 16, // Text font size

@@ -128,7 +128,7 @@ class _DashBoardState extends State<DashBoard> {
     return SizedBox(
       width: mediaSize.width,
       child: Card(
-        color: Colors.white,
+        color: Color(0x2FA76DEC),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -205,23 +205,24 @@ class _DashBoardState extends State<DashBoard> {
   );
 
   Widget _buildForm() {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 20),
+        const SizedBox(height: 25),
         FutureBuilder(
           future: controller.getUserData(), // Assuming getUserData() returns a Future<UserModel>
           builder: (context, AsyncSnapshot<UserModel> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return const Text('Hello From Gesturely',
+              return const Text(
+                'Hello From Gesturely',
                 style: TextStyle(
-                color: Colors.black,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),);
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
             } else if (snapshot.hasData) {
               final UserModel user = snapshot.data!;
               return Column(
@@ -229,11 +230,11 @@ class _DashBoardState extends State<DashBoard> {
                   Text(
                     user.fullName, // Assuming 'fullName' is a field in UserModel
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Color(0xff9a83e5),
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Georgia', // Change 'YourFont' to the desired font family
-                      fontStyle: FontStyle.italic, // Change to FontStyle.normal if needed
+                      //fontStyle: FontStyle.italic, // Change to FontStyle.normal if needed
                       // You can also use other properties like letterSpacing, wordSpacing, etc.
                     ),
                   ),
@@ -245,9 +246,7 @@ class _DashBoardState extends State<DashBoard> {
             }
           },
         ),
-        const SizedBox(height: 50),
-
-
+        const SizedBox(height: 30),
         Container(
           height: 120, // increased container height
           width: 250,
@@ -281,8 +280,6 @@ class _DashBoardState extends State<DashBoard> {
             ),
           ),
         ),
-
-
         const SizedBox(height: 50),
       ],
     );
