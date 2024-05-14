@@ -88,9 +88,10 @@ class MainActivity : FlutterActivity() {
                     startDefaultMediaPlayer()
                     result.success(null)
                 }
-                "playAudioFile" -> {
+                "audioPlay" -> {
                     _audioFilePath = call.argument<String>("filePath")
                     _audioFilePath?.let {
+                        Log.d("AudioPlay", "Playing audio file from path: $it")
                         audioPlay(it)
                         result.success(null)
                     } ?: result.error("FILE_PATH_ERROR", "Audio file path is null", null)
@@ -206,15 +207,17 @@ class MainActivity : FlutterActivity() {
     }
 
     private fun audioPlay(filePath: String) {
-        mediaPlayer?.release()  // Release any previous MediaPlayer instance
+        mediaPlayer?.release() // Release any previous MediaPlayer instance
         mediaPlayer = MediaPlayer().apply {
             try {
                 setDataSource(filePath)
                 prepare()
                 start()
+                Log.d("AudioPlay", "Audio is playing from path: $filePath")
             } catch (e: Exception) {
                 e.printStackTrace()
                 showToast("Error playing audio file.")
+                Log.e("AudioPlay", "Error playing audio file: ${e.message}")
             }
         }
     }

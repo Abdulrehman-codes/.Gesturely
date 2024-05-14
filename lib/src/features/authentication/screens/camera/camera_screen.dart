@@ -81,13 +81,13 @@ class CameraScreenState extends State<CameraScreen> {
     String message="Hello from the other side";
 
     channel.invokeMethod('openWhatsAppAndSendMessage', {
-      'phNo': phoneNumber,
-      'msg': message,
+      'phNo': whatsappPhoneNumber,
+      'msg': whatsappMessage,
     });
   }
 
   callOne(){
-      String phoneNumber = "03044555450";
+      //String phoneNumber = "03044555450";
       channel.invokeMethod("callOne", {"phNo": phoneNumber});
     // else{
     //   showToast("Permission Not Granted");
@@ -427,12 +427,12 @@ class CameraScreenState extends State<CameraScreen> {
               ),
             ),
             Positioned(
-              top: 400, // Adjust the top position as needed
+              top: 450, // Adjust the top position as needed
               left: 20,
               right: 20,
               child: ElevatedButton(
                 onPressed: () {
-                  startDefaultPlayer();
+                  audioPlay();
                   // toggleCameraAndModel(); // Start or stop camera and model
                 },
                 child: Text('Start Player'),
