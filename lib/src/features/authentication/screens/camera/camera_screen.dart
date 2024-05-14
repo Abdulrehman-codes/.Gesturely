@@ -55,9 +55,11 @@ class CameraScreenState extends State<CameraScreen> {
   Gestures gestures = Gestures(); // Create an instance of Gestures
 
   audioPlay(){
-    print("jabba");
     print(audioFilePath);
     channel.invokeMethod("audioPlay",{"filePath": audioFilePath});
+  }
+  startYoutube() {
+    channel.invokeMethod("youtube");
   }
 
   showToast(String message){
@@ -427,6 +429,18 @@ class CameraScreenState extends State<CameraScreen> {
               ),
             ),
             Positioned(
+              top: 400, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  startDefaultPlayer();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Start Player'),
+              ),
+            ),
+            Positioned(
               top: 450, // Adjust the top position as needed
               left: 20,
               right: 20,
@@ -435,7 +449,19 @@ class CameraScreenState extends State<CameraScreen> {
                   audioPlay();
                   // toggleCameraAndModel(); // Start or stop camera and model
                 },
-                child: Text('Start Player'),
+                child: Text('Audio Player'),
+              ),
+            ),
+            Positioned(
+              top: 500, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  startYoutube();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Youtube'),
               ),
             ),
             Positioned(

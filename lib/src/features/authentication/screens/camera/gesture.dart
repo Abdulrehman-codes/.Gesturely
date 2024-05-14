@@ -56,6 +56,10 @@ class Gestures {
   goBack() {
     navigatorKey.currentState?.pop();
   }
+  startYoutube() {
+    channel.invokeMethod("youtube");
+  }
+
 
   void perform(GestureAction action) {
     FunctionType preference = GesturePreferences.getPreference(action);
@@ -91,13 +95,17 @@ class Gestures {
       case FunctionType.volumeDown:
         volumeDown();
         break;
-      case FunctionType.goBack:
-        goBack();
-        break;
+      // case FunctionType.goBack:
+      //   goBack();
+      //   break;
       case FunctionType.startDefaultMediaPlayer:
         startDefaultPlayer();
         break;
       case FunctionType.audioPlay:
+        audioPlay();
+        break;
+      case FunctionType.startYoutube:
+        startYoutube();
         break;
       default:
         print("nothing");

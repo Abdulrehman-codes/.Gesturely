@@ -33,6 +33,7 @@ class MainActivity : FlutterActivity() {
     private val channelName = "gesturely"
     private var mediaPlayer: MediaPlayer? = null
     private var _audioFilePath: String? = null
+    private var isPlaying = false
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -88,6 +89,10 @@ class MainActivity : FlutterActivity() {
                     startDefaultMediaPlayer()
                     result.success(null)
                 }
+                "youtube" -> {
+                    startYoutube();
+                    result.success(null)
+                }
                 "audioPlay" -> {
                     _audioFilePath = call.argument<String>("filePath")
                     _audioFilePath?.let {
@@ -113,6 +118,13 @@ class MainActivity : FlutterActivity() {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(it)
         }
+    }
+    private fun startYoutube() {
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setPackage("com.google.android.youtube")
+        }
+        startActivity(intent)
     }
 
     private fun triggerScroll(offset: Int): Boolean {
@@ -206,18 +218,27 @@ class MainActivity : FlutterActivity() {
         upEvent.recycle()
     }
 
+
+
     private fun audioPlay(filePath: String) {
-        mediaPlayer?.release() // Release any previous MediaPlayer instance
-        mediaPlayer = MediaPlayer().apply {
-            try {
-                setDataSource(filePath)
-                prepare()
-                start()
-                Log.d("AudioPlay", "Audio is playing from path: $filePath")
-            } catch (e: Exception) {
-                e.printStackTrace()
-                showToast("Error playing audio file.")
-                Log.e("AudioPlay", "Error playing audio file: ${e.message}")
+        if (isPlaying) {
+            mediaPlayer?.pause()
+            isPlaying = false
+            Log.d("AudioPlay", "Audio playback paused")
+        } else {
+            mediaPlayer?.release() // Release any previous MediaPlayer instance
+            mediaPlayer = MediaPlayer().apply {
+                try {
+                    setDataSource(filePath)
+                    prepare()
+                    start()
+                    this@MainActivity.isPlaying = true
+                    Log.d("AudioPlay", "Audio is playing from path: $filePath")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showToast("Error playing audio file.")
+                    Log.e("AudioPlay", "Error playing audio file: ${e.message}")
+                }
             }
         }
     }

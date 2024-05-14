@@ -31,9 +31,9 @@ enum FunctionType {
   decreaseBrightness,
   whatsappmsg,
   callOne,
-  goBack,
   startDefaultMediaPlayer,
   audioPlay,
+  startYoutube,
   unknown
 
 }
@@ -42,6 +42,9 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 var channel = const MethodChannel("gesturely");
 showToast(String message) {
   channel.invokeMethod("showToast", {"message": message});
+}
+startYoutube() {
+  channel.invokeMethod("youtube");
 }
 
 scrollScreen() {
