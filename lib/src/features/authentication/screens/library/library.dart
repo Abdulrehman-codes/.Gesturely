@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
+import 'package:share_plus/share_plus.dart';
 
 extension StringExtension on String {
   String capitalize() {
@@ -147,7 +148,6 @@ class _LibraryState extends State<Library>
                   ),
                 ),
                 const SizedBox(height: 8),
-
                 const SizedBox(height: 20),
                 _buildActionButtons(gestureName),
                 const SizedBox(height: 20),
@@ -203,7 +203,10 @@ class _LibraryState extends State<Library>
       ],
     );
   }
-
+  Future<void> shareGesture(String gestureName, FunctionType? functionType) async {
+    String shareText = 'Gesture: ${gestureName.capitalize()}\nAction: ${functionType?.toString() ?? 'No Action Assigned'}';
+    await Share.share(shareText);
+  }
   void _showGesturePreferenceScreen(String gestureName) {
     Navigator.push(
       context,
@@ -221,7 +224,28 @@ class _LibraryState extends State<Library>
           },
         ),
       ),
-    );
+    ).then((_) {
+      // Show the "Share Gesture" button after returning from the GesturePreferencesScreen
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                shareGesture(gestureName, gesturePreferences[gestureName]);
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue, // Background color
+                onPrimary: Colors.white, // Text color
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24), // Padding
+              ),
+              child: const Text('Share Gesture'),
+            ),
+          );
+        },
+      );
+    });
   }
 
   @override
