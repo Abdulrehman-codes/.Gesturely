@@ -1,6 +1,7 @@
 import 'dart:ui';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp/src/constants/image_strings.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
@@ -11,6 +12,10 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
+String? audioFilePath;
+String? phoneNumber;
+String? whatsappPhoneNumber;
+String? whatsappMessage;
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
@@ -24,6 +29,7 @@ class _LibraryState extends State<Library>
   int maxEntriesToShow = 10; // Maximum entries to show initially
   // Add the next gesture card to the list
   List<Widget> cards = [];
+
   List<String> gestureNames = [
     'call',
     'dislike',
@@ -380,6 +386,10 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Gesture Preferences'),
@@ -403,6 +413,58 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
             }).toList(),
           ),
 
+          // Show input fields based on the selected action
+          if (_selectedAction == FunctionType.whatsappmsg)
+            Column(
+              children: [
+                TextField(
+                  onChanged: (value) {
+                    whatsappPhoneNumber = value;
+                  },
+                  keyboardType: TextInputType.phone, // Set keyboard type to phone
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Only allow digits
+                  decoration: InputDecoration(labelText: 'WhatsApp Phone Number'),
+                ),
+                TextField(
+                  onChanged: (value) {
+                    whatsappMessage = value;
+                  },
+                  decoration: InputDecoration(labelText: 'WhatsApp Message'),
+                ),
+              ],
+            ),
+          if (_selectedAction == FunctionType.callOne)
+            TextField(
+              onChanged: (value) {
+                phoneNumber = value;
+              },
+              keyboardType: TextInputType.phone, // Set keyboard type to phone
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly], // Only allow digits
+              decoration: InputDecoration(labelText: 'Phone Number'),
+            ),
+          if (_selectedAction == FunctionType.audioPlay)
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles(
+                      type: FileType.audio,
+                    );
+                    if (result != null) {
+                      setState(() {
+                        audioFilePath = result.files.single.path;
+                      });
+                      print('Selected audio file: $audioFilePath');
+                    } else {
+                      print('No audio file selected');
+                    }
+                  },
+                  child: Text('Upload Audio'),
+                ),
+                if (audioFilePath != null)
+                  Text('Selected file: $audioFilePath'),
+              ],
+            ),
           // Save the user's preference
           ElevatedButton(
             onPressed: _selectedAction != null
@@ -411,6 +473,14 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
                 _selectedGesture!,
                 _selectedAction!,
               );
+              if (_selectedAction == FunctionType.whatsappmsg) {
+                // Use _whatsappPhoneNumber and _whatsappMessage here
+                print('WhatsApp Phone Number: $whatsappPhoneNumber');
+                print('WhatsApp Message: $whatsappMessage');
+              } else if (_selectedAction == FunctionType.callOne) {
+                // Use _phoneNumber here
+                print('Phone Number: $phoneNumber');
+              }
               widget.onPreferenceSaved(_selectedAction);
               Navigator.pop(context);
               showToast(

@@ -1,55 +1,66 @@
 package com.example.fyp
 
 import android.accessibilityservice.AccessibilityService
-import android.accessibilityservice.AccessibilityServiceInfo
+import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
 class MyAccessibilityService : AccessibilityService() {
-    private var isFloatingButtonClicked = false
+    companion object {
+        var isFloatingButtonClicked = true
+    }
+
     private val scrollOffset = 100 // Adjust this offset as needed
+
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            val packageName = event.packageName?.toString()
-            // Check if the user is in a social media app
-            if (isSocialMediaApp(packageName) && isFloatingButtonClicked) {
-                // Perform scrolling logic
-                scrollScreen(scrollOffset)
-                isFloatingButtonClicked = false // Reset the flag after scrolling
+        event?.let {
+            if (it.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                val packageName = it.packageName?.toString()
+                Log.d("MyAccessibilityService", "Window state changed: $packageName")
+                if (isTargetApp(packageName) && isFloatingButtonClicked) {
+                    Log.d("MyAccessibilityService", "Detected target app and floating button click")
+                    scrollScreen()
+                    isFloatingButtonClicked = false // Reset the flag after scrolling
+                }
             }
         }
     }
 
-    private fun isSocialMediaApp(packageName: String?): Boolean {
+    private fun isTargetApp(packageName: String?): Boolean {
         return packageName?.startsWith("com.instagram") == true ||
                 packageName?.startsWith("com.facebook") == true ||
-                packageName?.startsWith("com.twitter") == true
+                packageName?.startsWith("com.twitter") == true ||
+                packageName?.startsWith("com.google.android.youtube") == true
     }
 
-    override fun onInterrupt() {}
+    override fun onInterrupt() {
+        Log.d("MyAccessibilityService", "Service interrupted")
+    }
 
-    private fun scrollScreen(offset: Int) {
-        // Implement your scrolling logic here
-        // For example, you can use AccessibilityNodeInfo to scroll content
+    private fun scrollScreen() {
         val rootNode = rootInActiveWindow
         rootNode?.let {
             val scrollableNode = findScrollableNode(it)
-            scrollableNode?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+            if (scrollableNode != null) {
+                scrollableNode.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
+                Log.d("MyAccessibilityService", "Performed scroll action")
+            } else {
+                Log.d("MyAccessibilityService", "No scrollable node found")
+            }
+        } ?: run {
+            Log.d("MyAccessibilityService", "Root node is null")
         }
     }
 
     private fun findScrollableNode(node: AccessibilityNodeInfo): AccessibilityNodeInfo? {
-        if (node.childCount == 0) {
-            if (node.isScrollable) {
-                return node
-            }
-        } else {
-            for (i in 0 until node.childCount) {
-                val childNode = node.getChild(i)
-                val result = findScrollableNode(childNode)
-                if (result != null) {
-                    return result
-                }
+        if (node.isScrollable) {
+            return node
+        }
+        for (i in 0 until node.childCount) {
+            val childNode = node.getChild(i)
+            val result = findScrollableNode(childNode)
+            if (result != null) {
+                return result
             }
         }
         return null

@@ -11,6 +11,7 @@ import 'package:fyp/src/features/authentication/screens/camera/gesture.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/operations/brightness.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
+import 'package:fyp/src/features/authentication/screens/library/library.dart';
 
 List<CameraDescription>? cameras;
 
@@ -53,6 +54,11 @@ class CameraScreenState extends State<CameraScreen> {
   bool isRunning=true;
   Gestures gestures = Gestures(); // Create an instance of Gestures
 
+  audioPlay(){
+    print("jabba");
+    print(audioFilePath);
+    channel.invokeMethod("audioPlay",{"filePath": audioFilePath});
+  }
 
   showToast(String message){
     channel.invokeMethod("showToast",{"message": message});
@@ -448,7 +454,7 @@ class CameraScreenState extends State<CameraScreen> {
                           bubbleIcon: 'github_bubble',
                           startLocationX: 0,
                           startLocationY: 100,
-                          bubbleSize: 60,
+                          bubbleSize: 40,
                           opacity: 1,
                           enableClose: true,
                           closeBehavior: CloseBehavior.fixed,

@@ -21,51 +21,72 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
       body: Column(
         children: [
           // Display available gestures and allow user to select one
-          DropdownButton<GestureAction>(
-            value: _selectedGesture,
-            hint: Text('Select a gesture'),
-            onChanged: (GestureAction? value) {
-              setState(() {
-                _selectedGesture = value;
-              });
-            },
-            items: GestureAction.values.map((GestureAction gesture) {
-              return DropdownMenuItem<GestureAction>(
-                value: gesture,
-                child: Text(gesture.toString()),
-              );
-            }).toList(),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownButton<GestureAction>(
+                  value: _selectedGesture,
+                  hint: Text('Select a gesture'),
+                  onChanged: (GestureAction? value) {
+                    setState(() {
+                      _selectedGesture = value;
+                    });
+                  },
+                  items: GestureAction.values.map((GestureAction gesture) {
+                    return DropdownMenuItem<GestureAction>(
+                      value: gesture,
+                      child: Text(gesture.toString()),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+            ],
           ),
 
           // Display available actions and allow user to select one
-          DropdownButton<FunctionType>(
-            value: _selectedAction,
-            hint: Text('Select an action'),
-            onChanged: (FunctionType? value) {
-              setState(() {
-                _selectedAction = value;
-              });
-            },
-            items: FunctionType.values.map((FunctionType action) {
-              return DropdownMenuItem<FunctionType>(
-                value: action,
-                child: Text(action.toString()),
-              );
-            }).toList(),
-          ),
+          Row(
+            children: [
+              Expanded(
+                child: DropdownButton<FunctionType>(
+                  value: _selectedAction,
+                  hint: Text('Select an action'),
+                  onChanged: (FunctionType? value) {
+                    setState(() {
+                      _selectedAction = value;
+                    });
+                  },
+                  items: FunctionType.values.map((FunctionType action) {
+                    return DropdownMenuItem<FunctionType>(
+                      value: action,
+                      child: Text(action.toString()),
+                    );
+                  }).toList(),
+                ),
+              ),
 
-          // Save the user's preference
+            ],
+          ),
           ElevatedButton(
-            onPressed: _selectedGesture != null && _selectedAction != null
+            onPressed: _selectedAction != null
                 ? () {
-              GesturePreferences.setPreference(
-                _selectedGesture!,
-                _selectedAction!,
-              );
+
             }
                 : null,
-            child: Text('Save Preference'),
+            child: Text('Confirm'),
           ),
+          // Save the user's preference
+          // ElevatedButton(
+          //   onPressed: _selectedGesture != null && _selectedAction != null
+          //       ? () {
+          //     GesturePreferences.setPreference(
+          //       _selectedGesture!,
+          //       _selectedAction!,
+          //     );
+          //   }
+          //       : null,
+          //   child: Text('Save Preference'),
+          // ),
         ],
       ),
     );

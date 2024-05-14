@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
+import 'package:fyp/src/features/authentication/screens/library/library.dart';
 
 enum GestureAction {
   call,
@@ -32,6 +33,7 @@ enum FunctionType {
   callOne,
   goBack,
   startDefaultMediaPlayer,
+  audioPlay,
   unknown
 
 }
@@ -61,13 +63,13 @@ whatsappmsg() {
   String message = "Hello from the other side";
 
   channel.invokeMethod('openWhatsAppAndSendMessage', {
-    'phNo': phoneNumber,
-    'msg': message,
+    'phNo': whatsappPhoneNumber,
+    'msg': whatsappMessage,
   });
 }
 
 callOne() {
-  String phoneNumber = "03044555450";
+  // String phoneNumber = "03044555450";
   channel.invokeMethod("callOne", {"phNo": phoneNumber});
 
 }
@@ -89,4 +91,10 @@ goBack() {
 }
 startDefaultPlayer(){
   channel.invokeMethod("startDefaultMediaPlayer");
+}
+
+audioPlay(){
+  print("jabba");
+  print(audioFilePath);
+  channel.invokeMethod("audioPlay",{"filePath": audioFilePath});
 }

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:fyp/src/features/authentication/screens/camera/gesture_enum.dart';
 import 'package:fyp/src/features/authentication/screens/gesture/gesture_preference.dart';
 import 'package:fyp/src/features/authentication/screens/operations/volume.dart';
+import 'package:fyp/src/features/authentication/screens/library/library.dart';
+
 
 class Gestures {
   var channel = const MethodChannel("gesturely");
@@ -28,17 +30,17 @@ class Gestures {
   }
 
   whatsappmsg() {
-    String phoneNumber = "03044555450";
-    String message = "Hello from the other side";
+    // String phoneNumber = "03044555450";
+    // String message = "Hello from the other side";
 
     channel.invokeMethod('openWhatsAppAndSendMessage', {
-      'phNo': phoneNumber,
-      'msg': message,
+      'phNo': whatsappPhoneNumber,
+      'msg': whatsappMessage,
     });
   }
 
   callOne() {
-    String phoneNumber = "03044555450";
+    // String phoneNumber = "03044555450";
     channel.invokeMethod("callOne", {"phNo": phoneNumber});
   }
 
@@ -95,6 +97,11 @@ class Gestures {
       case FunctionType.startDefaultMediaPlayer:
         startDefaultPlayer();
         break;
+      case FunctionType.audioPlay:
+        break;
+      default:
+        print("nothing");
+        // TODO: Handle this case.
     }
   }
 
