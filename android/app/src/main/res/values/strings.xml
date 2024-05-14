@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Gesturely</string>
     <string name="accessibility_service_label">Zero1</string>
     <string name="accessibility_service_description">Zero2</string>
 </resources>
