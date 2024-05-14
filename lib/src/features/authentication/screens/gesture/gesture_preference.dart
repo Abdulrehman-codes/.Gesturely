@@ -10,4 +10,5 @@ class GesturePreferences {
   static FunctionType getPreference(GestureAction gesture) {
     return _preferences[gesture] ?? FunctionType.unknown;
   }
+
 }

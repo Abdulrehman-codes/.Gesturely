@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 import 'package:android_intent/android_intent.dart';
 import 'package:dash_bubble/dash_bubble.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class CameraScreenState extends State<CameraScreen> {
 
   initializeCamera() {
     cameraController = CameraController(
-      cameras![0],
+      cameras![1],
       ResolutionPreset.ultraHigh,
     );
 
@@ -417,6 +418,18 @@ class CameraScreenState extends State<CameraScreen> {
                   // toggleCameraAndModel(); // Start or stop camera and model
                 },
                 child: Text('Call'),
+              ),
+            ),
+            Positioned(
+              top: 400, // Adjust the top position as needed
+              left: 20,
+              right: 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  startDefaultPlayer();
+                  // toggleCameraAndModel(); // Start or stop camera and model
+                },
+                child: Text('Start Player'),
               ),
             ),
             Positioned(

@@ -9,9 +9,11 @@ import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraManager
 import android.Manifest
 import android.content.res.Resources
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
@@ -84,6 +86,10 @@ class MainActivity : FlutterActivity() {
                     swipeLeftToRight()
                     showToast("SwipeLTR")
                 }
+                "startDefaultMediaPlayer" -> {
+                    startDefaultMediaPlayer()
+                    result.success(null)
+                }
             }
         }
     }
@@ -91,7 +97,15 @@ class MainActivity : FlutterActivity() {
     private fun showToast(message: String?) {
         Toast.makeText(this@MainActivity, message , Toast.LENGTH_SHORT).show()
     }
-
+    private fun startDefaultMediaPlayer() {
+        val packageName = "com.miui.player"
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        intent?.let {
+            it.action = "android.intent.action.MAIN"
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(it)
+        }
+    }
     private fun scrollScreen(offset: Int): Boolean {
         val rootView = window.decorView.findViewById<View>(android.R.id.content)
         return try {

@@ -11,6 +11,9 @@ class Gestures {
   showToast(String message) {
     channel.invokeMethod("showToast", {"message": message});
   }
+  startDefaultPlayer(){
+    channel.invokeMethod("startDefaultMediaPlayer");
+  }
 
   scrollScreen() {
     channel.invokeMethod("scrollScreen");
@@ -88,6 +91,9 @@ class Gestures {
         break;
       case FunctionType.goBack:
         goBack();
+        break;
+      case FunctionType.startDefaultMediaPlayer:
+        startDefaultPlayer();
         break;
     }
   }

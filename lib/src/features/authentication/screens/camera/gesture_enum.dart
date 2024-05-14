@@ -31,6 +31,7 @@ enum FunctionType {
   whatsappmsg,
   callOne,
   goBack,
+  startDefaultMediaPlayer,
   unknown
 
 }
@@ -85,4 +86,7 @@ swipeLTR() {
 }
 goBack() {
   navigatorKey.currentState?.pop();
+}
+startDefaultPlayer(){
+  channel.invokeMethod("startDefaultMediaPlayer");
 }

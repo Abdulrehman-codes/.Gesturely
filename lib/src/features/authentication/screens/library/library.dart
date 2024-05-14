@@ -20,6 +20,7 @@ class Library extends StatefulWidget {
 
 class _LibraryState extends State<Library>
     with AutomaticKeepAliveClientMixin<Library> {
+  int maxEntriesToShow = 10; // Maximum entries to show initially
   // Add the next gesture card to the list
   List<Widget> cards = [];
   List<String> gestureNames = [
@@ -32,8 +33,16 @@ class _LibraryState extends State<Library>
     'ok',
     'one',
     'palm',
-    'peace'
+    'peace',
+    'peace_inverted',
+    'rock',
+    'stop',
+    'stop_inverted',
+    'three2',
+    'two_up',
+    'two_up_inverted'
   ];
+
 
   // Map to store user's gesture preferences
   Map<String, FunctionType> gesturePreferences = {};
@@ -48,7 +57,10 @@ class _LibraryState extends State<Library>
   }
 
   void generateCards() {
-    for (int i = 0; i < gestureNames.length; i++) {
+
+    cards.clear(); // Clear existing cards
+
+    for (int i = 0; i < gestureNames.length && i < maxEntriesToShow; i++) {
       cards.add(
         GestureDetector(
           onTap: () {
@@ -75,7 +87,6 @@ class _LibraryState extends State<Library>
                       fontSize: 18,
                     ),
                   ),
-
                   const SizedBox(width: 8),
                 ],
               ),
@@ -84,7 +95,28 @@ class _LibraryState extends State<Library>
         ),
       );
     }
+
+    if (gestureNames.length > maxEntriesToShow) {
+      cards.add(
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              maxEntriesToShow += 10; // Increase the max entries to show
+              generateCards(); // Regenerate the cards with the new limit
+            });
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue, // Background color
+            onPrimary: Colors.white, // Text color
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24), // Padding
+          ),
+          child: Text('Show More'),
+        ),
+
+      );
+    }
   }
+
 
   void _showCardDetailsBottomSheet(int index) {
     String gestureName = gestureNames[index];
@@ -115,12 +147,7 @@ class _LibraryState extends State<Library>
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  'Gesture Data ${gestureName.capitalize()}',
-                  style: const TextStyle(height: 1.5),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
+
                 const SizedBox(height: 20),
                 _buildActionButtons(gestureName),
                 const SizedBox(height: 20),
@@ -287,29 +314,44 @@ class _GesturePreferencesScreenState extends State<GesturePreferencesScreen> {
 
   GestureAction _mapStringToGestureAction(String gestureName) {
     switch (gestureName) {
-      case 'call':
+      case "call":
         return GestureAction.call;
-      case 'dislike':
+      case "dislike":
         return GestureAction.dislike;
-      case 'fist':
+      case "fist":
         return GestureAction.fist;
-      case 'four':
+      case "four":
         return GestureAction.four;
-      case 'like':
+      case "like":
         return GestureAction.like;
-      case 'mute':
+      case "mute":
         return GestureAction.mute;
-      case 'ok':
+      case "ok":
         return GestureAction.ok;
-      case 'one':
+      case "one":
         return GestureAction.one;
-      case 'palm':
+      case "palm":
         return GestureAction.palm;
-      case 'peace':
+      case "peace":
         return GestureAction.peace;
+      case "peace_inverted":
+        return GestureAction.peace_inverted;
+      case "rock":
+        return GestureAction.rock;
+      case "stop":
+        return GestureAction.stop;
+      case "stop_inverted":
+        return GestureAction.stop_inverted;
+      case "three2":
+        return GestureAction.three2;
+      case "two_up":
+        return GestureAction.two_up;
+      case "two_up_inverted":
+        return GestureAction.two_up_inverted;
       default:
         return GestureAction.no_gesture;
     }
+
   }
 
   @override

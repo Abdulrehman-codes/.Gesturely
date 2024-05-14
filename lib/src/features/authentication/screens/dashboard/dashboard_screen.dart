@@ -218,7 +218,7 @@ class _DashBoardState extends State<DashBoard> {
               return const Text(
                 'Hello From Gesturely',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
